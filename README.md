@@ -23,8 +23,8 @@ This repository implements an autonomous precision landing system for ArduPilot 
 ## Installation
 
 1. **Install Dependencies:**
-   ```bash
-   sudo apt install ros-humble-apriltag-ros ros-humble-mavros ros-humble-mavros-msgs
+```bash
+sudo apt install ros-humble-apriltag-ros ros-humble-mavros ros-humble-mavros-msgs
 
 ```
 
