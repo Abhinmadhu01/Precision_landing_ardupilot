@@ -11,8 +11,8 @@ This repository implements an autonomous precision landing system for ArduPilot 
 ---
 
 ## Prerequisites
-* **OS:** Ubuntu 20.04 / 22.04
-* **Middleware:** ROS 2 (Humble/Jazzy)
+* **OS:** Ubuntu 22.04
+* **Middleware:** ROS 2 (Humble)
 * **Flight Controller:** ArduPilot (SITL or Hardware)
 * **Communication:** `mavros` ([Installation Guide](MAVROS_INSTALL.md))
 * **Vision:** `apriltag_ros`
