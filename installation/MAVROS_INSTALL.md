@@ -1,8 +1,4 @@
-Here is a clean, structured `MAVROS_INSTALL.md` file based on your reference. I have refined the formatting to match the professional style of your previous README, making it easy for users to follow.
 
-You can save this as `MAVROS_INSTALL.md` in your repository.
-
-```markdown
 # MAVROS Installation Guide
 
 This guide covers the installation of **MAVROS** (MAVLink extendable communication node for ROS 2). MAVROS is the critical bridge that allows your ROS 2 nodes (like the precision landing script) to communicate with the ArduPilot flight controller.
