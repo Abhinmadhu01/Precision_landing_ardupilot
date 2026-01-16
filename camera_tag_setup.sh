@@ -1,6 +1,6 @@
 #!/bin/bash
 # Script to start V4L2 Camera and AprilTag ROS 2 Nodes
-# Author: Abhin M (Modified by Gemini)
+# Author: Abhin M (Modified for Hardware Lock)
 
 # ==============================================================================
 # CONFIGURATION CONSTANTS
@@ -38,7 +38,7 @@ echo ""
 # --- 1. Camera Configuration ---
 echo "--- Camera Configuration ---"
 read -p "Camera Device [/dev/video2]: " CAM_DEV
-CAM_DEV=${CAM_DEV:-/dev/video2}
+CAM_DEV=${CAM_DEV:- 2}
 
 read -p "Image Width [1920]: " IMG_WIDTH
 IMG_WIDTH=${IMG_WIDTH:-1920}
@@ -61,7 +61,7 @@ TOPIC_INFO=${TOPIC_INFO:-/camera_info}
 echo ""
 echo "========================================="
 echo "Settings Summary:"
-echo "  Camera: $CAM_DEV @ ${IMG_WIDTH}x${IMG_HEIGHT} (${IMG_FPS}fps)"
+echo "  Camera: /dev/video$CAM_DEV @ ${IMG_WIDTH}x${IMG_HEIGHT} (${IMG_FPS}fps)"
 echo "  Subscribing to: $TOPIC_IMG"
 echo "========================================="
 read -p "Press Enter to start..."
@@ -92,13 +92,29 @@ else
 fi
 
 # ==============================================================================
+# CRITICAL FIX: HARDWARE TUNING
+# ==============================================================================
+echo ""
+echo "[Hardware Fix] Locking Camera Settings..."
+# We use '|| true' to ensure the script continues even if one command fails
+# 1. Disable Auto Exposure (1 = Manual)
+v4l2-ctl -d $CAM_DEV -c exposure_auto=1 || true
+# 2. Set Exposure Low (Reduces Motion Blur) - Adjust 150 if image is too dark
+v4l2-ctl -d $CAM_DEV -c exposure_absolute=150 || true
+# 3. Disable Auto Focus
+v4l2-ctl -d $CAM_DEV -c focus_auto=0 || true
+# 4. Set Focus to Infinity (0)
+v4l2-ctl -d $CAM_DEV -c focus_absolute=0 || true
+echo "✓ Exposure and Focus Locked."
+
+# ==============================================================================
 # EXECUTION
 # ==============================================================================
 
 echo ""
 echo "[1/2] Starting V4L2 Camera Node..."
 ros2 run v4l2_camera v4l2_camera_node --ros-args \
-    -p video_device:=$CAM_DEV \
+    -p video_device:= /dev/video$CAM_DEV \
     -p framerate:=$IMG_FPS \
     -p image_width:=$IMG_WIDTH \
     -p image_height:=$IMG_HEIGHT \
