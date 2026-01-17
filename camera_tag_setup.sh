@@ -24,34 +24,28 @@ cleanup() {
     exit
 }
 
-# Trap SIGINT (Ctrl+C)
 trap cleanup SIGINT
 
 # ==============================================================================
 # USER INPUTS
 # ==============================================================================
 echo "========================================="
-echo "   Vision System Startup (Cam + Tags)    "
+echo "   Vision System Startup (Logitech C920) "
 echo "========================================="
 echo ""
 
 # --- 1. Camera Configuration ---
-echo "--- Camera Configuration ---"
-read -p "Camera Device [/dev/video2]: " CAM_DEV
-CAM_DEV=${CAM_DEV:- 2}
+read -p "Camera Index Number (e.g. 0, 2, 4) [2]: " CAM_INDEX
+CAM_INDEX=${CAM_INDEX:-2}
+CAM_DEV="/dev/video${CAM_INDEX}"
 
-read -p "Image Width [1920]: " IMG_WIDTH
-IMG_WIDTH=${IMG_WIDTH:-1920}
+read -p "Image Width [640]: " IMG_WIDTH
+IMG_WIDTH=${IMG_WIDTH:-640}
 
-read -p "Image Height [1080]: " IMG_HEIGHT
-IMG_HEIGHT=${IMG_HEIGHT:-1080}
-
-read -p "Framerate [30.0]: " IMG_FPS
-IMG_FPS=${IMG_FPS:-30.0}
+read -p "Image Height [480]: " IMG_HEIGHT
+IMG_HEIGHT=${IMG_HEIGHT:-480}
 
 # --- 2. Topic Configuration ---
-echo ""
-echo "--- Topic Configuration ---"
 read -p "Image Topic [/image_raw]: " TOPIC_IMG
 TOPIC_IMG=${TOPIC_IMG:-/image_raw}
 
@@ -61,72 +55,59 @@ TOPIC_INFO=${TOPIC_INFO:-/camera_info}
 echo ""
 echo "========================================="
 echo "Settings Summary:"
-echo "  Camera: /dev/video$CAM_DEV @ ${IMG_WIDTH}x${IMG_HEIGHT} (${IMG_FPS}fps)"
-echo "  Subscribing to: $TOPIC_IMG"
+echo "  Device: $CAM_DEV"
+echo "  Format: MJPG @ ${IMG_WIDTH}x${IMG_HEIGHT}"
 echo "========================================="
 read -p "Press Enter to start..."
 
 # ==============================================================================
-# SOURCING WORKSPACES
+# SOURCE WORKSPACE
+# ==============================================================================
+source /opt/ros/humble/setup.bash
+source "$WORKSPACE_DIR/install/setup.bash"
+
+# ==============================================================================
+# HARDWARE PRE-TUNING (First Pass)
 # ==============================================================================
 echo ""
-echo "[Setting up Environment]"
+echo "[Hardware Fix] Pre-locking Settings via v4l2-ctl..."
 
-# 1. Source System ROS 2
-if [ -f /opt/ros/humble/setup.bash ]; then
-    source /opt/ros/humble/setup.bash
-    echo "✓ Sourced ROS 2 Humble"
-else
-    echo "❌ Error: ROS 2 Humble not found at /opt/ros/humble/setup.bash"
-    exit 1
-fi
-
-# 2. Source User Workspace
-if [ -f "$WORKSPACE_DIR/install/setup.bash" ]; then
-    source "$WORKSPACE_DIR/install/setup.bash"
-    echo "✓ Sourced Workspace: $WORKSPACE_DIR"
-else
-    echo "❌ Error: Workspace setup file not found at $WORKSPACE_DIR/install/setup.bash"
-    echo "   (Did you forget to run 'colcon build'?)"
-    exit 1
-fi
-
-# ==============================================================================
-# CRITICAL FIX: HARDWARE TUNING
-# ==============================================================================
-echo ""
-echo "[Hardware Fix] Locking Camera Settings..."
-# We use '|| true' to ensure the script continues even if one command fails
-# 1. Disable Auto Exposure (1 = Manual)
-v4l2-ctl -d $CAM_DEV -c exposure_auto=1 || true
-# 2. Set Exposure Low (Reduces Motion Blur) - Adjust 150 if image is too dark
-v4l2-ctl -d $CAM_DEV -c exposure_absolute=150 || true
-# 3. Disable Auto Focus
-v4l2-ctl -d $CAM_DEV -c focus_auto=0 || true
-# 4. Set Focus to Infinity (0)
+# We force these now, but we ALSO send them to ROS below to prevent overwriting
+v4l2-ctl -d $CAM_DEV -c focus_automatic_continuous=0 || true
 v4l2-ctl -d $CAM_DEV -c focus_absolute=0 || true
-echo "✓ Exposure and Focus Locked."
+v4l2-ctl -d $CAM_DEV -c auto_exposure=1 || true
+v4l2-ctl -d $CAM_DEV -c exposure_time_absolute=150 || true
+v4l2-ctl -d $CAM_DEV -c gain=30 || true
+
+echo "✓ Settings Pre-Locked."
 
 # ==============================================================================
 # EXECUTION
 # ==============================================================================
 
 echo ""
-echo "[1/2] Starting V4L2 Camera Node..."
+echo "[1/2] Starting V4L2 Camera Node (Enforcing Params)..."
+
+# CRITICAL CHANGE: Passing parameters (-p) tells ROS to keep these settings!
+# exposure_dynamic_framerate=false prevents frame drops in low light
 ros2 run v4l2_camera v4l2_camera_node --ros-args \
-    -p video_device:= /dev/video$CAM_DEV \
-    -p framerate:=$IMG_FPS \
+    -p video_device:=$CAM_DEV \
     -p image_width:=$IMG_WIDTH \
     -p image_height:=$IMG_HEIGHT \
-    -p pixel_format:=mjpeg2rgb \
+    -p pixel_format:=yuyv \
     -p camera_name:=camera_logi \
-    -p camera_info_url:=$CALIB_FILE &
+    -p camera_info_url:=$CALIB_FILE \
+    -p focus_automatic_continuous:=false \
+    -p focus_absolute:=0 \
+    -p auto_exposure:=1 \
+    -p exposure_time_absolute:=150 \
+    -p exposure_dynamic_framerate:=false \
+    -p gain:=30 &
 
 PID_CAM=$!
 echo "✓ Camera Node PID: $PID_CAM"
 
-# Small delay to let camera node advertise topics
-echo "Waiting 3 seconds for camera to initialize..."
+echo "Waiting 3 seconds..."
 sleep 3
 
 echo ""
@@ -143,6 +124,8 @@ echo ""
 echo "========================================="
 echo "System Running. Press Ctrl+C to stop."
 echo "========================================="
+
+wait
 
 # Wait indefinitely keeps the script running so the trap works
 wait
