@@ -1,0 +1,70 @@
+# Parameters for the Precision Landing stack (ROS 2 Humble).
+# Top-level keys must match the node names in launch/uav_core.launch.py.
+#
+# IMPORTANT: the original nodes hardcode these values. They read this file only
+# after the changes described in docs/software/config.md are applied.
+# Units are in the comment on each line. Full descriptions: docs/software/config.md
+
+mission_executive:
+  ros__parameters:
+    # --- Mission --------------------------------------------------------
+    # CHANGE THESE for your site. The drone flies here after takeoff.
+    target_lat: 8.5703492            # degrees
+    target_lon: 76.8846539           # degrees
+    takeoff_alt: 6.0                 # m above home (also the cruise altitude)
+    takeoff_wait_s: 5.0              # s fixed wait after the takeoff command, before navigating
+
+    # --- Nested tags (family 48h12) -------------------------------------
+    # IDs: outer 22.7 cm = 0, middle 4.5 cm = 1, inner 1.6 cm = 2
+    tag_ids: [0, 1, 2]
+    # The visible tag with the HIGHEST value is tracked. See docs/tags.md.
+    tag_priorities: [1.0, 0.8, 0.6]
+
+    # --- Failsafe -------------------------------------------------------
+    heartbeat_timeout_s: 5.0         # s without /mavros/state before RTL
+
+navigation_server:
+  ros__parameters:
+    arrival_radius_m: 1.5            # m, waypoint counts as reached inside this distance
+    setpoint_rate_hz: 20.0           # Hz, ArduPilot GUIDED needs continuous setpoints
+    # Cruise speed: recommended 5-6 m/s. Set the matching ArduPilot parameter
+    # WPNAV_SPEED = waypoint_speed_mps * 100 (cm/s), i.e. 500-600.
+    # The current code does not apply this value itself, see docs/software/config.md.
+    waypoint_speed_mps: 5.0
+
+landing_server:
+  ros__parameters:
+    # --- Camera ---------------------------------------------------------
+    image_width: 640                 # px, must match the camera stream
+    image_height: 480                # px
+    # Image centre is image_width/2 and image_height/2 (320, 240 at 640x480).
+    # Mounting: image top = drone forward, image left = drone left. Flip a sign if yours differs.
+    sign_x: 1.0
+    sign_y: 1.0
+
+    # --- PID (tuned at 640x480, errors are in pixels) -------------------
+    kp_strafe: 0.0011
+    kp_fwd: 0.0011
+    kd_strafe: 0.0008
+    kd_fwd: 0.0008
+    ki_xy: 0.0003
+    kp_yaw: 0.005
+    d_filter_alpha: 0.2
+    max_speed_mps: 0.5               # m/s, horizontal speed clamp during landing
+    final_gain_multiplier: 0.6       # gain scale below final_approach_alt
+
+    # --- Altitudes (m above home, from /mavros/global_position/rel_alt) -
+    max_detection_alt: 6.0
+    final_approach_alt: 2.0
+    forced_land_alt: 1.5
+    land_alt_trigger: 0.40
+    stall_check_alt: 0.75
+
+    # --- Timing ---------------------------------------------------------
+    forced_land_timeout_s: 3.0       # s below forced_land_alt before LAND
+    stall_window_s: 2.0
+    stall_slope_thresh: -0.025       # m/s
+    rtl_timeout_s: 15.0              # s without a tag before RTL
+
+    # --- Descent rates (m/s, negative = down) ---------------------------
+    probe_descent_rate: -0.3

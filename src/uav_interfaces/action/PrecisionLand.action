@@ -1,0 +1,15 @@
+# Goal
+int32[] target_tag_ids
+float64[] tag_priorities
+---
+# Result
+bool success
+string message
+---
+# Feedback
+string current_phase
+float64 current_alt
+bool tag_visible
+int32 active_tag_id
+float64 err_x
+float64 err_y

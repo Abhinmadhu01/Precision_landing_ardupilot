@@ -1,0 +1,13 @@
+# GOAL
+float64 target_lat
+float64 target_lon
+float64 target_alt
+---
+# RESULT
+bool success
+string message
+float64 final_distance
+---
+# FEEDBACK
+float64 distance_remaining
+float64 current_speed
