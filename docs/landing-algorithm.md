@@ -76,3 +76,12 @@ At the commanded descent rates the 3 s stall watchdog is usually the first to fi
 3. If the drone oscillates near the ground, lower `final_gain_multiplier`.
 4. Gains are tuned for 640x480. Retune after changing resolution ([software/config.md](software/config.md)).
 5. If you change descent rates, check the stall watchdog timing above.
+
+---
+
+<div align="center">
+
+| [⬅️ Previous: **09 - Configuration**](software/config.md) | [📖 **Documentation Roadmap**](../README.md#documentation-roadmap) | [➡️ Next: **11 - Troubleshooting**](troubleshooting.md) |
+| :--- | :---: | ---: |
+
+</div>

@@ -26,11 +26,13 @@ Designed in Onshape and exported for 3D printing. The assembly consists of two i
 
 ## Files
 
-| File | Description |
-| --- | --- |
-| `cad/imx_camera_holder_top_down.stl` | Print-ready STL mesh *(Add file to `cad/`)* |
-| `cad/imx_camera_holder_top_down.step` | Editable STEP solid model *(Add file to `cad/`)* |
-| Onshape Document | Modelled on Onshape *(Add public link)* |
+| File | Type | Description |
+| --- | :---: | --- |
+| [`cad/fury_imx500_holder.stl`](cad/fury_imx500_holder.stl) | Mesh | Base camera mount print-ready STL model |
+| [`cad/fury_imx500_holder.step`](cad/fury_imx500_holder.step) | Solid | Base camera mount editable STEP CAD model |
+| [`cad/imx500_fury_enclouser.stl`](cad/imx500_fury_enclouser.stl) | Mesh | Camera protective enclosure print-ready STL model |
+| [`cad/imx500_fury_enclouser.step`](cad/imx500_fury_enclouser.step) | Solid | Camera protective enclosure editable STEP CAD model |
+| Onshape Document | Cloud | Modelled in Onshape *(ICFOSS Drone Lab)* |
 
 ## Print Settings
 
@@ -72,7 +74,7 @@ This ensures error corrections directly map to velocity setpoints:
 - Tag appearing in top half of image $\rightarrow$ Drone moves **Forward**.
 - Tag appearing in left half of image $\rightarrow$ Drone moves **Left**.
 
-If your physical mounting has the camera rotated $180^\circ$ or $90^\circ$, either physically flip the mount or update `sign_x` and `sign_y` in [../../../config/params.yaml](../../../config/params.yaml). Always verify on the bench before flight.
+If your physical mounting has the camera rotated $180^\circ$ or $90^\circ$, either physically flip the mount or update `sign_x` and `sign_y` in [../../../src/autonomous_flight_stack/config/params.yaml](../../../src/autonomous_flight_stack/config/params.yaml). Always verify on the bench before flight.
 
 ## Pre-Flight Checklist
 
@@ -81,3 +83,12 @@ If your physical mounting has the camera rotated $180^\circ$ or $90^\circ$, eith
 - [ ] Lens is cleaned and focused for nominal descent range
 - [ ] CSI ribbon cable is strain-relieved and clear of propellers
 - [ ] Orientation confirmed in software (`ros2 run rqt_image_view rqt_image_view`)
+
+---
+
+<div align="center">
+
+| [⬅️ Previous: **02 - Hardware Setup**](../README.md) | [📖 **Documentation Roadmap**](../../../README.md#documentation-roadmap) | [➡️ Next: **04 - Nested AprilTags**](../../tags.md) |
+| :--- | :---: | ---: |
+
+</div>

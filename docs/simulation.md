@@ -10,7 +10,12 @@ Test the whole mission in software before any hardware flight. The flight stack 
 
 - Ubuntu 22.04 workstation (or the Docker environment) with ROS 2 Humble and MAVROS
 - ArduPilot SITL (ArduCopter) and MAVProxy
-- Gazebo with a camera on the simulated drone and an AprilTag target on the ground: TODO: add your world and model files or links
+- Gazebo Garden / Fortress with a camera sensor plugin on the drone and an AprilTag target ground plane
+
+| Simulated Drone Model (Gazebo) | Ground AprilTag Landing Pad |
+| :---: | :---: |
+| ![S500 Quadcopter Gazebo Simulation Model](images/simulation/sim_gazebo_s500_drone_model.png) | ![Gazebo Runway AprilTag Target Marker](images/simulation/sim_gazebo_apriltag_target_marker.png) |
+| *S500 Quadcopter model with downward-facing mono camera sensor* | *Simulation world ground plane with concentric AprilTag landing marker* |
 
 ## 1. Start SITL
 
@@ -31,14 +36,15 @@ ros2 launch mavros apm.launch fcu_url:=udp://:14550@127.0.0.1:14555
 
 Start the simulated camera bridge and `apriltag_ros` so that `/detections` publishes:
 
-![Gazebo and RViz AprilTag Landing Interface](images/simulation/sim_gazebo_rviz_landing_interface.png)
-
-*Simulated downward-facing camera topic visualized in RViz with detected AprilTag coordinate axes.*
-
 Check topic publication frequency with:
 ```bash
 ros2 topic hz /detections
 ```
+
+| Camera Target Detection View | Dynamic TF Coordinate Frames |
+| :---: | :---: |
+| ![Simulated camera feed](images/simulation/sim_gazebo_rviz_landing_interface.png) | ![RViz coordinate frames during landing](images/simulation/sim_rviz_coordinate_frames_landing.png) |
+| *Real-time detection overlay on simulated video stream* | *Target translation vector relative to camera optical frame* |
 
 ## 4. Start the flight stack
 
@@ -75,3 +81,12 @@ The stack arms, takes off, flies to `target_lat` and `target_lon`, searches for 
 | Waypoint | Near the SITL home | Your test site |
 | Camera | Gazebo camera | IMX500 |
 | Wind and barometer noise | Simulated or absent | Real, affects the final landing |
+
+---
+
+<div align="center">
+
+| [⬅️ Previous: **05 - Detection Range**](detection-range.md) | [📖 **Documentation Roadmap**](../README.md#documentation-roadmap) | [➡️ Next: **07 - Software Stack & Docker**](software/README.md) |
+| :--- | :---: | ---: |
+
+</div>

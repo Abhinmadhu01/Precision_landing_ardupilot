@@ -26,7 +26,7 @@ The Docker image, `Dockerfile` and `docker-compose.yml` are in a separate reposi
 
 ## 1. Configure
 
-Edit [../../config/params.yaml](../../config/params.yaml):
+Edit [../../src/autonomous_flight_stack/config/params.yaml](../../src/autonomous_flight_stack/config/params.yaml):
 
 - `target_lat`, `target_lon`, `takeoff_alt` for your site
 - `tag_ids` and `tag_priorities` to match your printed tags ([../tags.md](../tags.md))
@@ -82,3 +82,12 @@ Leaving GUIDED mode makes the landing server abort its goal.
 ## Logs
 
 ROS 2 logs are in `~/.ros/log` inside the container. Also keep the ArduPilot `.BIN` log from the Cube's SD card for each flight.
+
+---
+
+<div align="center">
+
+| [⬅️ Previous: **06 - SITL Simulation**](../simulation.md) | [📖 **Documentation Roadmap**](../../README.md#documentation-roadmap) | [➡️ Next: **08 - ROS 2 Nodes & Interfaces**](nodes.md) |
+| :--- | :---: | ---: |
+
+</div>

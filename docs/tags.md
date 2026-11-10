@@ -37,7 +37,7 @@ Use the AprilTag images from the AprilRobotics project for the 48h12 family and 
 
 ## Changing tag IDs or family
 
-1. In [../config/params.yaml](../config/params.yaml), set `tag_ids` (for example `[6, 7, 8]`) and `tag_priorities` in the same order.
+1. In [../src/autonomous_flight_stack/config/params.yaml](../src/autonomous_flight_stack/config/params.yaml), set `tag_ids` (for example `[6, 7, 8]`) and `tag_priorities` in the same order.
 2. In the `apriltag_ros` configuration (Docker repository) set the same family and IDs, and the tag sizes if you use pose output.
 3. Rebuild nothing: the landing server only uses tags in the goal list and ignores all other tags.
 
@@ -51,3 +51,12 @@ tag_priorities: [1.0, 0.8, 0.6]
 ```
 
 the outer tag (0) wins whenever it is visible, and the middle and inner tags take over only when the outer tag is not detected. If you would rather track the smallest visible tag as soon as it appears, reverse the priorities, for example `[0.6, 0.8, 1.0]`. The comment in `mission_executive.py` describes the second behaviour, see [known-issues.md](known-issues.md).
+
+---
+
+<div align="center">
+
+| [⬅️ Previous: **03 - Camera Holder Mount**](hardware/camera-holder/README.md) | [📖 **Documentation Roadmap**](../README.md#documentation-roadmap) | [➡️ Next: **05 - Optical Detection Range**](detection-range.md) |
+| :--- | :---: | ---: |
+
+</div>

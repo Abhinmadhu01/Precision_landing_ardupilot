@@ -80,3 +80,12 @@ These are model estimates, not measurements. They show the design rule: **each s
 - Use a larger tag, or a higher resolution (this also changes the image centre and PID scaling, see [software/config.md](software/config.md)).
 - Keep the image sharp: fixed exposure and focus help, motion blur lowers detection range.
 - Use matte print material and good contrast.
+
+---
+
+<div align="center">
+
+| [⬅️ Previous: **04 - Nested AprilTags**](tags.md) | [📖 **Documentation Roadmap**](../README.md#documentation-roadmap) | [➡️ Next: **06 - SITL Simulation**](simulation.md) |
+| :--- | :---: | ---: |
+
+</div>

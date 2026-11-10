@@ -31,3 +31,12 @@ Check the logs first: `[CRUISE]`, `[SEARCH_DESCENT]`, `[APPROACH]` and `[FINAL_A
 - The ArduPilot `.BIN` log from the flight controller
 - Camera resolution, tag family, IDs and printed sizes
 - Photos of the setup if hardware is involved
+
+---
+
+<div align="center">
+
+| [⬅️ Previous: **10 - Landing Algorithm**](landing-algorithm.md) | [📖 **Documentation Roadmap**](../README.md#documentation-roadmap) | [➡️ Next: **12 - Known Issues & Limitations**](known-issues.md) |
+| :--- | :---: | ---: |
+
+</div>

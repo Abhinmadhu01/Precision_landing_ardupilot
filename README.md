@@ -10,7 +10,11 @@ Developed by Abhin M for ICFOSS. Released under the MIT license.
 
 *The precision landing drone: Raspberry Pi 5 and IMX500 camera facing straight down, with a Cube Orange+ flight controller.*
 
-<!-- TODO: add a short demo GIF of the landing: docs/images/demo.gif -->
+<p align="center">
+  <img src="docs/images/demo.gif" width="360" alt="Autonomous Precision Landing on AprilTag Demonstration" />
+  <br>
+  <em>Autonomous AprilTag detection, descent, and precision touchdown recorded in field flight testing.</em>
+</p>
 
 ## What it does
 
@@ -83,26 +87,28 @@ Details, wiring and the power warning: [docs/hardware/README.md](docs/hardware/R
 2. Build the hardware: [docs/hardware/README.md](docs/hardware/README.md) and the [camera holder](docs/hardware/camera-holder/README.md).
 3. Set up the Raspberry Pi 5 with the Docker image (separate repository): TODO: add Docker repo link.
 4. Print your tag: [docs/tags.md](docs/tags.md).
-5. Edit [config/params.yaml](config/params.yaml): target GPS position, altitude, tag IDs.
+5. Edit [src/autonomous_flight_stack/config/params.yaml](src/autonomous_flight_stack/config/params.yaml): target GPS position, altitude, tag IDs.
 6. Test in simulation first: [docs/simulation.md](docs/simulation.md).
 7. Run on hardware with propellers off, then tethered, then free flight: [docs/software/README.md](docs/software/README.md).
 
-## Documentation
+## Documentation Roadmap
 
-| Document | Contents |
-| --- | --- |
-| [SAFETY.md](SAFETY.md) | Safety rules and checklists (reusable for any drone project) |
-| [docs/hardware/README.md](docs/hardware/README.md) | Parts, wiring, power, Cube setup |
-| [docs/hardware/camera-holder/README.md](docs/hardware/camera-holder/README.md) | IMX500 top-down camera holder: files, printing, mounting |
-| [docs/software/README.md](docs/software/README.md) | Docker, running the stack, verifying topics |
-| [docs/software/nodes.md](docs/software/nodes.md) | The three nodes, topics, actions |
-| [docs/software/config.md](docs/software/config.md) | Every parameter in `config/params.yaml` |
-| [docs/landing-algorithm.md](docs/landing-algorithm.md) | Landing phases, PID, touchdown logic |
-| [docs/tags.md](docs/tags.md) | Nested tag design and how to change IDs |
-| [docs/detection-range.md](docs/detection-range.md) | Maximum detection range equation |
-| [docs/simulation.md](docs/simulation.md) | SITL / Gazebo testing |
-| [docs/troubleshooting.md](docs/troubleshooting.md) | Common problems and fixes |
-| [docs/known-issues.md](docs/known-issues.md) | Known code issues and limitations |
+Read the documentation sequentially following this guided workflow:
+
+| Step | Document | Contents |
+| :---: | :--- | :--- |
+| **01** | [SAFETY.md](SAFETY.md) | **Safety First**: Pre-arm checklists and kill switch configuration |
+| **02** | [docs/hardware/README.md](docs/hardware/README.md) | **Hardware Setup**: Parts list, BEC power regulation, CSI wiring, bench test |
+| **03** | [docs/hardware/camera-holder/README.md](docs/hardware/camera-holder/README.md) | **Camera Mount**: 3D printed CAD models, print settings, assembly guide |
+| **04** | [docs/tags.md](docs/tags.md) | **Target Design**: Concentric 48h12 nested AprilTag markers & sizing |
+| **05** | [docs/detection-range.md](docs/detection-range.md) | **Detection Range**: Optical geometry and maximum altitude equations |
+| **06** | [docs/simulation.md](docs/simulation.md) | **SITL Simulation**: Gazebo world, RViz visualization, and mission replay |
+| **07** | [docs/software/README.md](docs/software/README.md) | **Software Stack**: Raspberry Pi OS, Docker container, and topic checks |
+| **08** | [docs/software/nodes.md](docs/software/nodes.md) | **ROS 2 Nodes**: Mission executive, navigation, and landing action servers |
+| **09** | [docs/software/config.md](docs/software/config.md) | **Configuration**: Parameter tuning reference for `params.yaml` |
+| **10** | [docs/landing-algorithm.md](docs/landing-algorithm.md) | **Landing Logic**: State machine, PID descent loops, and touchdown checks |
+| **11** | [docs/troubleshooting.md](docs/troubleshooting.md) | **Troubleshooting**: Diagnostic matrix for common flight issues |
+| **12** | [docs/known-issues.md](docs/known-issues.md) | **Known Issues**: Active firmware considerations and limitation log |
 
 ## Repository layout
 
@@ -111,8 +117,8 @@ Precision_landing_ardupilot/
   README.md
   SAFETY.md
   LICENSE
-  config/params.yaml            all tunable parameters
-  launch/uav_core.launch.py     starts the three nodes with the parameter file
+  src/autonomous_flight_stack/config/params.yaml            all tunable parameters
+  src/autonomous_flight_stack/launch/uav_core.launch.py     starts the three nodes with the parameter file
   src/
     autonomous_flight_stack/scripts/   mission_executive.py, navigation_server.py, landing_server.py
     uav_interfaces/action/             NavigateToWaypoint.action, PrecisionLand.action
@@ -125,3 +131,13 @@ Precision_landing_ardupilot/
 ## License
 
 MIT, see [LICENSE](LICENSE).
+
+
+---
+
+<div align="center">
+
+| 📖 Documentation Guide | ➡️ [**Start Step 01: Safety Guide (SAFETY.md)**](SAFETY.md) |
+| :---: | :---: |
+
+</div>

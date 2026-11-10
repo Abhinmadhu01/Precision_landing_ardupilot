@@ -108,3 +108,12 @@ float64 err_y
 | `/mavros/global_position/global` | `sensor_msgs/NavSatFix` | MAVROS |
 | `/mavros/global_position/rel_alt` | `std_msgs/Float64` | MAVROS |
 | `/mavros/local_position/pose` | `geometry_msgs/PoseStamped` | MAVROS |
+
+---
+
+<div align="center">
+
+| [⬅️ Previous: **07 - Software Setup**](README.md) | [📖 **Documentation Roadmap**](../../README.md#documentation-roadmap) | [➡️ Next: **09 - Configuration Parameters**](config.md) |
+| :--- | :---: | ---: |
+
+</div>

@@ -99,3 +99,12 @@ The full bench setup (Raspberry Pi 5, IMX500, BEC, and Cube Orange+) before inst
 - [ ] MAVROS shows `connected: true` on `/mavros/state`
 - [ ] GPS lock outdoors, no pre-arm errors
 - [ ] Camera orientation checked: image top = drone nose, image left = drone left (see [camera-holder](camera-holder/README.md))
+
+---
+
+<div align="center">
+
+| [⬅️ Previous: **01 - Safety Guide**](../../SAFETY.md) | [📖 **Documentation Roadmap**](../../README.md#documentation-roadmap) | [➡️ Next: **03 - Camera Holder Mount**](camera-holder/README.md) |
+| :--- | :---: | ---: |
+
+</div>

@@ -42,3 +42,12 @@ The image centre (320, 240) and the PID gains are tuned for 640x480. At 1280x720
 - The prototype's 5 V / 3 A buck converter is below the 5 V / 5 A the Pi 5 needs ([hardware/README.md](hardware/README.md)).
 - IMX500 support requires Raspberry Pi OS on the host, which is why the stack runs in Docker.
 - The 7-8 m (640x480) and 10-12 m (1280x720) detection ranges are for a 22.7 cm tag in your lighting conditions.
+
+---
+
+<div align="center">
+
+| [⬅️ Previous: **11 - Troubleshooting**](troubleshooting.md) | [📖 **Documentation Roadmap**](../README.md#documentation-roadmap) | [➡️ Next: **Return to Project Home**](../README.md) |
+| :--- | :---: | ---: |
+
+</div>

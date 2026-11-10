@@ -1,6 +1,6 @@
 # Configuration
 
-All tunable values are in [../../config/params.yaml](../../config/params.yaml), loaded by [../../launch/uav_core.launch.py](../../launch/uav_core.launch.py).
+All tunable values are in [../../src/autonomous_flight_stack/config/params.yaml](../../src/autonomous_flight_stack/config/params.yaml), loaded by [../../src/autonomous_flight_stack/launch/uav_core.launch.py](../../src/autonomous_flight_stack/launch/uav_core.launch.py).
 
 > **Status:** the original nodes hardcode these values. The YAML file and launch file are ready, but each node must declare and read its parameters. The code changes are listed at the end of this page.
 
@@ -91,3 +91,12 @@ Notes:
 - Declare list parameters with a default of the right type, for example `self.declare_parameter('tag_ids', [0, 1, 2])` and `self.declare_parameter('tag_priorities', [1.0, 0.8, 0.6])`.
 - Run `ros2 param dump /landing_server` on the running node to confirm the values it actually uses.
 - Keep a local copy of `params.yaml` per vehicle and per site instead of editing the repository default.
+
+---
+
+<div align="center">
+
+| [⬅️ Previous: **08 - ROS 2 Nodes**](nodes.md) | [📖 **Documentation Roadmap**](../../README.md#documentation-roadmap) | [➡️ Next: **10 - Landing Algorithm**](../landing-algorithm.md) |
+| :--- | :---: | ---: |
+
+</div>
