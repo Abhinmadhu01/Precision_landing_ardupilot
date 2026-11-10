@@ -6,9 +6,11 @@ Autonomous takeoff, GPS waypoint flight and AprilTag-guided precision landing fo
 
 Developed by Abhin M for ICFOSS. Released under the MIT license.
 
-![Fury drone with the IMX500 camera facing straight down, side view](docs/images/overview/fury_drone_precision_landing_setup_side_view.jpeg)
-
-*The precision landing drone: Raspberry Pi 5 and IMX500 camera facing straight down, with a Cube Orange+ flight controller.*
+<p align="center">
+  <img src="docs/images/overview/fury_drone_landed_top_view_on_apriltag.jpeg" width="500" alt="Fury drone landed on AprilTag target, top view" />
+  <br>
+  <em>Autonomous precision landing touchdown: Fury quadcopter centered and landed directly on the nested AprilTag target.</em>
+</p>
 
 <p align="center">
   <img src="docs/images/demo.gif" width="360" alt="Autonomous Precision Landing on AprilTag Demonstration" />
