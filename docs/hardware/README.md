@@ -61,10 +61,10 @@ Measure the BEC output with a multimeter before connecting the Pi, as in the pho
 
 Power the Pi off before touching the camera cable. Lift the connector latch, insert the ribbon cable fully with the contacts facing the correct way, and close the latch. The camera is connected to the **CAM0** port.
 
-| Step | Photos |
-| --- | --- |
-| Insert the ribbon cable | ![CSI ribbon cable insertion, photo 1](images/hardware_rpi5_csi_ribbon_cable_insertion_v1.jpg) ![CSI ribbon cable insertion, photo 2](images/hardware_rpi5_csi_ribbon_cable_insertion_v2.jpg) ![CSI ribbon cable insertion, photo 3](images/hardware_rpi5_csi_ribbon_cable_insertion_v3.jpg) |
-| Connected to CAM0 | ![Camera connected to CAM0, photo 1](images/hardware_rpi5_csi_port_cam0_connected_v1.jpg) ![Camera connected to CAM0, photo 2](images/hardware_rpi5_csi_port_cam0_connected_v2.jpg) ![Camera connected to CAM0, photo 3](images/hardware_rpi5_csi_port_cam0_connected_v3.jpg) ![Camera connected to CAM0, photo 4](images/hardware_rpi5_csi_port_cam0_connected_v4.jpg) |
+| Step 1: Insert Ribbon Cable | Step 2: Connect to CAM0 Port |
+| :---: | :---: |
+| ![CSI ribbon cable insertion](images/hardware_rpi5_csi_ribbon_cable_insertion_v2.jpg) | ![Camera connected to CAM0](images/hardware_rpi5_csi_port_cam0_connected_v2.jpg) |
+| *Lift latch and slide ribbon cable contacts in squarely* | *Firmly seat ribbon cable and lock CAM0 retention clip* |
 
 TODO: confirm the cable length and the connector orientation you used.
 
@@ -83,13 +83,12 @@ The Pi runs **Raspberry Pi OS with Docker**. The ROS 2 Humble stack runs in an U
 
 ## Bench setup
 
-The full bench setup (Raspberry Pi 5, IMX500, BEC and the Cube) before the parts go on the drone:
+The full bench setup (Raspberry Pi 5, IMX500, BEC, and Cube Orange+) before installing on the drone:
 
-| Bench setup 1 | Bench setup 2 | Bench setup 3 |
-| --- | --- | --- |
-| ![Bench setup with Pi 5, IMX500 and BEC, photo 1](images/hardware_bench_setup_rpi5_imx500_bec_complete_v1.jpg) | ![Bench setup with Pi 5, IMX500 and BEC, photo 2](images/hardware_bench_setup_rpi5_imx500_bec_complete_v2.jpg) | ![Bench setup with Pi 5, IMX500 and BEC, photo 3](images/hardware_bench_setup_rpi5_imx500_bec_complete_v3.jpg) |
-
-![Complete bench interconnect, including the Wi-Fi dongle](images/hardware_bench_interconnect_complete_with_wifi_v1.jpg)
+| Bench Hardware Setup | Complete Interconnect with Telemetry Wi-Fi |
+| :---: | :---: |
+| ![Bench setup with Pi 5, IMX500 and BEC](images/hardware_bench_setup_rpi5_imx500_bec_complete_v1.jpg) | ![Complete bench interconnect with Wi-Fi dongle](images/hardware_bench_interconnect_complete_with_wifi_v1.jpg) |
+| *Raspberry Pi 5 with IMX500 AI camera and 5V BEC regulator* | *Full bench interconnect wiring with Wi-Fi dongle for telemetry link* |
 
 ## Bench checklist
 

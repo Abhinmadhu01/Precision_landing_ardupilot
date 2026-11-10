@@ -2,6 +2,10 @@
 
 Test the whole mission in software before any hardware flight. The flight stack was validated both in simulation and on hardware.
 
+![SITL Gazebo and RViz Simulation Overview](images/simulation/sim_multiwindow_precision_landing.png)
+
+*Full software-in-the-loop (SITL) simulation environment with ArduPilot, Gazebo synthetic camera feed, RViz AprilTag detection, and QGroundControl.*
+
 ## What you need
 
 - Ubuntu 22.04 workstation (or the Docker environment) with ROS 2 Humble and MAVROS
@@ -25,7 +29,16 @@ ros2 launch mavros apm.launch fcu_url:=udp://:14550@127.0.0.1:14555
 
 ## 3. Start the camera and tag detection
 
-Start the simulated camera bridge and `apriltag_ros` so that `/detections` publishes: TODO: add the commands you use. Check with `ros2 topic hz /detections`.
+Start the simulated camera bridge and `apriltag_ros` so that `/detections` publishes:
+
+![Gazebo and RViz AprilTag Landing Interface](images/simulation/sim_gazebo_rviz_landing_interface.png)
+
+*Simulated downward-facing camera topic visualized in RViz with detected AprilTag coordinate axes.*
+
+Check topic publication frequency with:
+```bash
+ros2 topic hz /detections
+```
 
 ## 4. Start the flight stack
 

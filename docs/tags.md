@@ -14,7 +14,11 @@ A single tag is either big enough to see from altitude but leaves the camera's v
 | Middle | 48h12 | 1 | 4.5 cm | Medium and close range |
 | Inner | 48h12 | 2 | 1.6 cm | Final close range |
 
-TODO: add the tag image here (for example `images/tag_0_1_2.png`). The tags are placed concentrically: tag 1 inside tag 0, tag 2 inside tag 1.
+<p align="center">
+  <img src="images/tags/apriltag_nested_48h12_marker.png" width="400" alt="Nested AprilTag Target (Family 48h12, IDs 0, 1, 2)" />
+  <br>
+  <em>Concentric Nested AprilTag Target: Tag 2 inside Tag 1, Tag 1 inside Tag 0 (Family 48h12).</em>
+</p>
 
 Confirm the sizes you print by measuring the printed tag edge with a ruler. Detection range scales with printed size, see [detection-range.md](detection-range.md).
 

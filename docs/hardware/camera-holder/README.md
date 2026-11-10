@@ -1,59 +1,83 @@
 # IMX500 Top-Down Camera Holder
 
-A 3D-printed holder that fixes the IMX500 camera so it looks straight down at the ground. It was designed in Onshape (free for non-commercial use) and printed in PLA.
+A custom 3D-printed mounting system designed in Onshape to secure the Sony IMX500 AI camera module firmly on the drone with a fixed nadir (straight-down) orientation.
 
-TODO: add a photo of the printed holder as `images/holder_photo.jpg`, then add `![Printed camera holder](images/holder_photo.jpg)` here.
+![Printed camera holder assembly](images/3d_printed_enclouser_fixed_on_base_holder_3d_printedassembly_sequence_5.jpeg)
+
+*Completed 3D-printed IMX500 camera enclosure and base mount.*
+
+## CAD Designs
+
+Designed in Onshape and exported for 3D printing. The assembly consists of two interlocking parts: the **Base Camera Holder** and the **Protective Enclosure**.
+
+### Fully Assembled Mount
+| Isometric View | Top View |
+| :---: | :---: |
+| ![Fully assembled isometric view](cad/cad_design_fully_assembled_isometric_view.png) | ![Fully assembled top view](cad/cad_design_fully_assembled_top_view.png) |
+
+### Component Parts
+| Base Holder (Isometric) | Base Holder (Top View) |
+| :---: | :---: |
+| ![Base camera holder isometric view](cad/cad_design_base_cam_holder_isometric_view.png) | ![Base camera holder top view](cad/cad_design_base_cam_holder_top_view.png) |
+
+| Enclosure (Isometric) | Enclosure (Top View) | Enclosure (Bottom View) |
+| :---: | :---: | :---: |
+| ![Enclosure isometric view](cad/cad_design_enclouser_isometric_view.png) | ![Enclosure top view](cad/cad_design_enclouser_top_view.png) | ![Enclosure bottom view](cad/cad_design_enclouser_bottom_view.png) |
 
 ## Files
 
 | File | Description |
 | --- | --- |
-| `cad/imx_camera_holder_top_down.stl` | Print-ready model. TODO: add file |
-| `cad/imx_camera_holder_top_down.step` | Editable CAD export. TODO: add file |
-| Onshape document | TODO: add public link |
+| `cad/imx_camera_holder_top_down.stl` | Print-ready STL mesh *(Add file to `cad/`)* |
+| `cad/imx_camera_holder_top_down.step` | Editable STEP solid model *(Add file to `cad/`)* |
+| Onshape Document | Modelled on Onshape *(Add public link)* |
 
-Put the files in the `cad/` folder next to this README, and photos in `images/`.
+## Print Settings
 
-## Print settings
+| Setting | Recommended Value | Notes |
+| --- | --- | --- |
+| Material | PLA or PETG | Use PETG if operating in direct hot sunlight |
+| Layer Height | 0.20 mm | Standard detail |
+| Infill | 20% - 30% | Gyroid or Grid |
+| Perimeters / Walls | 3 | Ensures screw holes hold threads without cracking |
+| Supports | None or Touching Buildplate | Designed to print flat without internal supports |
 
-| Setting | Value |
-| --- | --- |
-| Material | PLA |
-| Printer | TODO |
-| Layer height | TODO |
-| Infill | TODO |
-| Supports | TODO |
-| Print orientation | TODO |
+## Hardware Needed
 
-PLA softens in hot sun and inside a closed hot enclosure. If you fly in hot conditions, consider PETG.
+| Item | Specification | Quantity |
+| --- | --- | :---: |
+| Camera mounting screws | M2 x 6 mm Phillips machine screws | 4 |
+| Camera mounting nuts | M2 hex nuts | 4 |
+| Frame attachment | M3 bolts & nylon locknuts (or zip-ties) | 4 |
 
-## Hardware needed
+## Step-by-Step Assembly Guide
 
-| Item | Quantity |
-| --- | --- |
-| Screws and nuts for the camera | TODO (size and count) |
-| Screws and nuts for mounting the holder to the frame | TODO (size and count) |
-| Frame or arm it mounts to | TODO |
+| Sequence | Photo | Details |
+| :---: | :---: | --- |
+| **Step 1 & 2** | ![3D printed enclosure](images/fury_imx500_cam_enclouser_3d_printed_for_precision_landing_assembly_sequence_2.jpeg) | **Inspect 3D Printed Parts**: Remove any brim, clean out screw holes, and verify the IMX500 camera module fits snugly into the enclosure recess. |
+| **Step 3** | ![Camera fixed on holder](images/cam_fixed_on_holder_m2x6_phillis_screw_assembly_sequence_3.jpeg) | **Install Camera in Enclosure**: Place the Sony IMX500 module into the mount and fasten it using four M2x6 mm Phillips machine screws and nuts. Do not over-tighten. |
+| **Step 4** | ![Holder attached to drone base](images/3d_printed_holder_attached_on_fury_drone_base_assembly_sequence_4.jpeg) | **Mount Base to Drone Undercarriage**: Fasten the base holder securely to the lower bottom plate of the drone frame with screws aligned along the vehicle centerline. |
+| **Step 5** | ![Enclosure fixed on base holder](images/3d_printed_enclouser_fixed_on_base_holder_3d_printedassembly_sequence_5.jpeg) | **Lock Enclosure to Base**: Fasten the camera enclosure onto the base holder, ensuring the lens is perpendicular to the drone's horizontal plane (facing true nadir). |
+| **Step 6** | ![Ribbon cable routing to Pi 5](images/fury_drone_ribbon_routing_to_pi5.jpeg) | **Route CSI Ribbon Cable**: Guide the 15-to-22 pin CSI ribbon cable smoothly up to the Raspberry Pi 5 CAM0 port without sharp kinks or proximity to rotating props. |
 
-## Mounting
+## Camera Orientation (Crucial for Control Loop)
 
-1. Attach the camera to the holder. Make sure the CSI cable has room and is not bent sharply.
-2. Mount the holder to the frame so the lens points **straight down**. The camera is fixed (no gimbal).
-3. Check the lens has a clear view and that no frame part, landing gear leg or propeller is in the picture.
-4. Secure the cable so it cannot touch the propellers.
+The precision landing server assumes the following coordinate frame alignment:
 
-### Orientation (important)
+- **Top of the image = Drone Nose (Forward, +X)**
+- **Left of the image = Drone Left (+Y)**
+- **Center of optical axis = True Nadir (-Z)**
 
-The landing controller assumes:
+This ensures error corrections directly map to velocity setpoints:
+- Tag appearing in top half of image $\rightarrow$ Drone moves **Forward**.
+- Tag appearing in left half of image $\rightarrow$ Drone moves **Left**.
 
-- **Top of the image = drone nose (forward)**
-- **Left of the image = drone left**
+If your physical mounting has the camera rotated $180^\circ$ or $90^\circ$, either physically flip the mount or update `sign_x` and `sign_y` in [../../../config/params.yaml](../../../config/params.yaml). Always verify on the bench before flight.
 
-This follows from the control code: a tag appearing in the upper part of the image makes the drone move forward, and a tag on the left makes it move left. If your camera is rotated, either rotate the holder or change `sign_x` and `sign_y` in [../../../config/params.yaml](../../../config/params.yaml). Check this on the bench with propellers off: move a tag in front of the camera and confirm the commanded velocity points toward it.
+## Pre-Flight Checklist
 
-## Checks before flight
-
-- [ ] Holder is tight, no wobble when you shake the frame
-- [ ] Image is sharp at the landing altitudes you will use
-- [ ] Orientation checked as above
-- [ ] Camera cable is secured away from propellers
+- [ ] Camera holder is rigid with zero play/wobble on the frame
+- [ ] Lens view is completely unobstructed by landing gear or prop disks
+- [ ] Lens is cleaned and focused for nominal descent range
+- [ ] CSI ribbon cable is strain-relieved and clear of propellers
+- [ ] Orientation confirmed in software (`ros2 run rqt_image_view rqt_image_view`)

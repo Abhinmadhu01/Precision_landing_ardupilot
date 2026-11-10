@@ -2,6 +2,12 @@
 
 The flight stack is three ROS 2 nodes in the package `autonomous_flight_stack`, with two action definitions in `uav_interfaces`.
 
+<p align="center">
+  <img src="../images/software/ros_node_architecture_flowchart.png" width="700" alt="ROS 2 Node Architecture Flowchart" />
+  <br>
+  <em>System computation architecture showing inter-node communications, action servers, and MAVROS bridge topics.</em>
+</p>
+
 ```text
 mission_executive --(NavigateToWaypoint action)--> navigation_server --> /mavros/setpoint_raw/global
         |
