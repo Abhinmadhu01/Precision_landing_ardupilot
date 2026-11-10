@@ -6,7 +6,11 @@ Autonomous takeoff, GPS waypoint flight and AprilTag-guided precision landing fo
 
 Developed by Abhin M for ICFOSS. Released under the MIT license.
 
-<!-- TODO: add a photo or GIF of the drone landing on the tag: docs/images/demo.gif -->
+![Fury drone with the IMX500 camera facing straight down, side view](docs/images/overview/fury_drone_precision_landing_setup_side_view.jpeg)
+
+*The precision landing drone: Raspberry Pi 5 and IMX500 camera facing straight down, with a Cube Orange+ flight controller.*
+
+<!-- TODO: add a short demo GIF of the landing: docs/images/demo.gif -->
 
 ## What it does
 
@@ -37,6 +41,12 @@ flowchart LR
 
 Landing accuracy (distance from tag centre at touchdown): TODO: add measured values.
 
+### Landing photos
+
+| Side view | Top view | Setup, landed on the tag |
+| --- | --- | --- |
+| ![Drone landed on the AprilTag, side view](docs/images/overview/fury_drone_landed_side_view_on_apriltag.jpeg) | ![Drone landed on the AprilTag, top view](docs/images/overview/fury_drone_landed_top_view_on_apriltag.jpeg) | ![Precision landing setup after landing on the AprilTag](docs/images/overview/fury_drone_precision_landing_setup_side_view_landed_on_apriltag.jpeg) |
+
 How these numbers relate to tag size and resolution: [docs/detection-range.md](docs/detection-range.md).
 
 ## System overview
@@ -60,6 +70,10 @@ RC (mode switch) --> Cube Orange+ <--USB--> MAVROS     v
 | Camera | IMX500, mounted facing straight down |
 | Camera mount | 3D-printed PLA holder, designed in Onshape ([files](docs/hardware/camera-holder/README.md)) |
 | Link | USB cable from the Cube to a Pi 5 USB port (MAVROS) |
+
+| Camera from below | Whole vehicle from below |
+| --- | --- |
+| ![Bottom view of the drone showing the downward-facing camera](docs/images/overview/fury_drone_precision_landing_setup_bottom_view.jpeg) | ![Bottom view of the drone, zoomed out](docs/images/overview/fury_drone_precision_landing_setup_bottom_view_zoomed_out.jpeg) |
 
 Details, wiring and the power warning: [docs/hardware/README.md](docs/hardware/README.md).
 
@@ -103,6 +117,9 @@ Precision_landing_ardupilot/
     autonomous_flight_stack/scripts/   mission_executive.py, navigation_server.py, landing_server.py
     uav_interfaces/action/             NavigateToWaypoint.action, PrecisionLand.action
   docs/
+    images/overview/                   photos used in this README
+    hardware/images/                   photos used in docs/hardware/README.md
+    hardware/camera-holder/images/     photos used in the camera holder README
 ```
 
 ## License

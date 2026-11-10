@@ -17,6 +17,12 @@ Everything you need to build the vehicle side of the system. Read [../../SAFETY.
 | Battery | Single LiPo powers everything | Cell count and capacity: TODO |
 | Cable | USB data cable, Cube USB port to a Pi 5 USB port | Must be a data cable, not charge-only |
 
+### Parts photos
+
+| Cube Orange+ (box) | IMX500 AI camera | RC transmitter (RadioMaster TX16S) |
+| --- | --- | --- |
+| ![Cube Orange+ box](images/hardware_cubepilot_orange_plus_packaging_box_v2.jpg) | ![IMX500 camera module](images/hardware_rpi_ai_camera_imx500_module_v1.jpg) | ![RadioMaster TX16S transmitter with the mode switches](images/hardware_radiomaster_tx16s_rc_transmitter_gimbal_switches_v1.jpg) |
+
 ## Connections
 
 ```text
@@ -33,6 +39,10 @@ Everything you need to build the vehicle side of the system. Read [../../SAFETY.
 - MAVROS talks to the Cube over USB. The Cube normally appears on the Pi as `/dev/ttyACM0` (check with `ls /dev/ttyACM*`). Pass this device into the Docker container, see the Docker repository.
 - The IMX500 connects to the Pi's CSI camera port.
 
+| Cube carrier board USB wiring | Cube with safety switch, buzzer and USB extender to the Pi |
+| --- | --- |
+| ![Cube carrier board USB wiring close-ups](images/hardware_cubepilot_carrier_board_usb_wiring_closeups_v3.jpg) | ![Cube with safety switch, buzzer and USB extender for the Pi connection](images/hardware_cubepilot_with_safety_switch_buzzer_v1_usb_extender_for_pi_connection.jpg) |
+
 ## Power warning
 
 The Pi 5 needs a **5 V / 5 A** supply. The prototype was built with a 5 V / 3 A buck converter, which is below that requirement. An under-powered Pi 5 can throttle its CPU, reset, or drop USB devices in flight.
@@ -40,6 +50,23 @@ The Pi 5 needs a **5 V / 5 A** supply. The prototype was built with a 5 V / 3 A 
 - Use a buck converter rated at least 5 V / 5 A, with a clean output.
 - Check for power problems with `vcgencmd get_throttled` on the Pi host (`0x0` means no problems recorded).
 - Test under full load (camera, detection, MAVROS running) on the ground before flying.
+
+| BEC voltage regulator (USB-C output) | Checking the 5 V output with a multimeter |
+| --- | --- |
+| ![BEC voltage regulator with USB-C module](images/hardware_bec_voltage_regulator_usb_c_module_v2.jpg) | ![Multimeter measuring the 5 V BEC output](images/hardware_multimeter_5v_bec_voltage_test_v1.jpg) |
+
+Measure the BEC output with a multimeter before connecting the Pi, as in the photo.
+
+## Connecting the camera (CSI)
+
+Power the Pi off before touching the camera cable. Lift the connector latch, insert the ribbon cable fully with the contacts facing the correct way, and close the latch. The camera is connected to the **CAM0** port.
+
+| Step | Photos |
+| --- | --- |
+| Insert the ribbon cable | ![CSI ribbon cable insertion, photo 1](images/hardware_rpi5_csi_ribbon_cable_insertion_v1.jpg) ![CSI ribbon cable insertion, photo 2](images/hardware_rpi5_csi_ribbon_cable_insertion_v2.jpg) ![CSI ribbon cable insertion, photo 3](images/hardware_rpi5_csi_ribbon_cable_insertion_v3.jpg) |
+| Connected to CAM0 | ![Camera connected to CAM0, photo 1](images/hardware_rpi5_csi_port_cam0_connected_v1.jpg) ![Camera connected to CAM0, photo 2](images/hardware_rpi5_csi_port_cam0_connected_v2.jpg) ![Camera connected to CAM0, photo 3](images/hardware_rpi5_csi_port_cam0_connected_v3.jpg) ![Camera connected to CAM0, photo 4](images/hardware_rpi5_csi_port_cam0_connected_v4.jpg) |
+
+TODO: confirm the cable length and the connector orientation you used.
 
 ## Flight controller setup
 
@@ -53,6 +80,16 @@ Safety note: because the stack arms and takes off as soon as it sees GUIDED mode
 ## Raspberry Pi 5 host
 
 The Pi runs **Raspberry Pi OS with Docker**. The ROS 2 Humble stack runs in an Ubuntu 22.04 container. The reason: the IMX500 camera has no firmware support on Ubuntu 22.04 for the CSI port, so the camera has to be handled by Raspberry Pi OS. Host setup, the Docker image and `docker compose` files are in a separate repository: TODO: add Docker repo link.
+
+## Bench setup
+
+The full bench setup (Raspberry Pi 5, IMX500, BEC and the Cube) before the parts go on the drone:
+
+| Bench setup 1 | Bench setup 2 | Bench setup 3 |
+| --- | --- | --- |
+| ![Bench setup with Pi 5, IMX500 and BEC, photo 1](images/hardware_bench_setup_rpi5_imx500_bec_complete_v1.jpg) | ![Bench setup with Pi 5, IMX500 and BEC, photo 2](images/hardware_bench_setup_rpi5_imx500_bec_complete_v2.jpg) | ![Bench setup with Pi 5, IMX500 and BEC, photo 3](images/hardware_bench_setup_rpi5_imx500_bec_complete_v3.jpg) |
+
+![Complete bench interconnect, including the Wi-Fi dongle](images/hardware_bench_interconnect_complete_with_wifi_v1.jpg)
 
 ## Bench checklist
 
