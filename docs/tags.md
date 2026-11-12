@@ -4,18 +4,14 @@ This document explains the optical design, mathematical principles, and practica
 
 ---
 
-## Target Marker Comparison: Digital vs Physical
+## Target Marker Comparison: Digital Template vs. Physical Print
 
 To ensure high-precision tracking across diverse outdoor lighting and flight elevations, the target is constructed as a 3-tier concentric nested marker printed on matte paper and adhered to a rigid backing board.
 
 | Digital Marker Template (Family 48h12) | Physical Printed Target (Mounted on Cardboard) |
 | :---: | :---: |
-| ![Nested AprilTag Target Template](images/tags/apriltag_nested_48h12_marker.png) | ![Printed AprilTag Target Mounted on Cardboard](images/tags/apriltag_nested_printed_cardboard.jpg) |
-| *Concentric 3-level vector layout: Tag 0 (outer), Tag 1 (middle), Tag 2 (inner)* | *Physical field target printed at 1:1 scale on non-glare matte stock and mounted on rigid cardboard* |
-
-> [!NOTE]
-> *Photo Upload Placeholder*: If `apriltag_nested_printed_cardboard.jpg` is not yet in your local directory, take a top-down photo of your physical printed cardboard landing pad and save it as:  
-> `docs/images/tags/apriltag_nested_printed_cardboard.jpg`.
+| ![Nested AprilTag Target Template](images/tags/apriltag_nested_48h12_marker.png) | ![Printed AprilTag Target Mounted on Cardboard](images/tags/printed_nested_apriltag.jpeg) |
+| *Concentric 3-level vector layout: Tag 0 (outer), Tag 1 (middle), Tag 2 (inner)* | *Physical field target printed at 1:1 scale on non-glare stock and secured firmly to rigid cardboard* |
 
 ---
 
@@ -23,6 +19,12 @@ To ensure high-precision tracking across diverse outdoor lighting and flight ele
 
 A common question in vision-based precision landing is: **"Why not simply use a single standard AprilTag or ArUco marker?"**
 
+| Single AprilTag Marker (Physical Test) | Concentric Nested AprilTag Marker (This Stack) |
+| :---: | :---: |
+| ![Single Large AprilTag Target](images/tags/single_april_tag.jpeg) | ![Concentric Nested AprilTag Target](images/tags/printed_nested_apriltag.jpeg) |
+| *Single large AprilTag tiled across sheets: visible only at high altitudes, clipped near the ground* | *Concentric nested multi-scale AprilTag: continuous unbroken tracking from cruise down to touchdown* |
+
+### The Scale Paradox in Monocular Vision
 In monocular vision-guided robotics, a single fiducial marker suffers from an unavoidable fundamental limitation known as the **Altitude-Scale Dilemma (Scale Paradox)**:
 
 ```text
@@ -113,14 +115,6 @@ tag_priorities: [1.0, 0.8, 0.6]
      - Outer Tag black border: Exactly **$227\text{ mm}$**.
      - Middle Tag black border: Exactly **$45\text{ mm}$**.
      - Inner Tag black border: Exactly **$16\text{ mm}$**.
-
----
-
-## Visual Assets Wanted for This Page
-
-To make this documentation 100% complete, you can drop the following images into `docs/images/tags/`:
-1. `apriltag_nested_printed_cardboard.jpg`: Photo of your actual printed target mounted on cardboard.
-2. *(Optional)* `single_vs_nested_comparison.png`: An infographic or side-by-side photograph showing a single tag vs your concentric nested target.
 
 ---
 

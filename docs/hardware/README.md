@@ -18,19 +18,19 @@ The complete hardware interconnect between the Cube Orange+ flight controller, R
 
 1. **Companion Computer & FCU Telemetry Link (MAVROS)**:
    - **Cube Port**: `TELEM 2` on the carrier board (3-wire: TX, RX, GND).
-   - **Pi Port**: USB-A port on the Raspberry Pi 5 via a dedicated USB-to-UART / FTDI serial bridge cable.
+   - **Pi Port**: USB-A port on the Raspberry Pi 5 via a custom spliced USB-to-UART serial cable.
    - **Serial Device**: Typically appears as `/dev/ttyUSB0` or `/dev/ttyACM0` on the Pi host.
    - **Communication Protocol**: MAVLink 2 at 921600 baud (`SERIAL2_BAUD = 921`, `SERIAL2_PROTOCOL = 2`).
 2. **Vision Subsystem (CSI Interface)**:
    - **Camera**: Sony IMX500 AI Camera Module mounted in the 3D-printed nadir enclosure.
-   - **Ribbon Cable**: **500 mm flexible flat cable (FPC)** (15-pin to 22-pin pitch adapter).
+   - **Ribbon Cable**: **500 mm flexible flat cable (FPC)** (Standard 15-pin to Mini 22-pin pitch adapter).
    - **Pi Port**: Connected to the Raspberry Pi 5 **CAM0** CSI connector with contacts facing towards the latch.
 3. **Dual-Regulated Power Distribution**:
    - **Battery Source**: 2200 mAh 40C LiPo battery connected via an XT60 parallel splitter.
    - **FCU Power Branch**: Powers the **Cube Brick Mini** power module, providing monitored 5.3 V to the Cube's **POWER1** port with voltage and current sensing telemetry.
    - **Companion Computer Branch**: Powers a dedicated **5V 5A DC-DC Buck Converter**, which outputs regulated 5.0 V / 5.0 A through a USB-C plug directly into the Pi 5 power input.
 4. **Wireless Ground Station & Telemetry (GCS Link)**:
-   - **Wi-Fi Dongle**: High-gain **TP-Link USB Wi-Fi Receiver** plugged into a Raspberry Pi 5 USB 3.0 port.
+   - **Wi-Fi Dongle**: High-gain **TP-Link AC1300 Dual-Band USB Wi-Fi Receiver** with external antenna plugged into a Raspberry Pi 5 USB 3.0 port.
    - **Function**: Enables high-bandwidth field connectivity for remote SSH terminals, ROS 2 distributed DDS topics, and live GStreamer video downlink (`gstream_pi_cam.py`) to the ground control laptop.
 
 ---
@@ -44,30 +44,44 @@ The complete hardware interconnect between the Cube Orange+ flight controller, R
 | **Vision Sensor** | Sony IMX500 AI Camera Module | Fixed nadir (straight-down) orientation. Publishes 640x480 / 1280x720 video frames at 30 fps. |
 | **Camera Ribbon** | 500 mm FPC CSI Ribbon Cable (15-pin to 22-pin) | Connects camera to Pi 5 `CAM0` port with sufficient flex for airframe mounting. |
 | **Camera Mount** | 3D-printed 2-piece PLA/PETG enclosure & base | Custom CAD mount designed in Onshape (see [camera-holder](camera-holder/README.md)). |
-| **Telemetry Wi-Fi** | TP-Link High-Gain USB Wi-Fi Receiver | Ground-to-air telemetry, live terminal diagnostics, and GStreamer video stream. |
+| **Telemetry Wi-Fi** | TP-Link AC1300 High-Gain USB Wi-Fi Receiver | Ground-to-air telemetry, live terminal diagnostics, and GStreamer video stream. |
 | **Companion Power** | 5 V / 5 A DC-DC Buck Converter (USB-C termination) | Dedicated power supply for Raspberry Pi 5. **5 A minimum is strictly required**. |
 | **Autopilot Power** | Cube Power Brick Mini Module | Dedicated power module for Cube Orange+ `POWER1` port with voltage/current sensing. |
 | **Battery Bus** | 2200 mAh 40C LiPo Battery | Central flight and companion power source with XT60 splitter. |
-| **Serial Link Cable**| TELEM 2 (JST-GH) to USB Data Cable | Bridges Cube Orange+ TELEM 2 UART to Pi 5 USB port for MAVROS. |
+| **Serial Link Cable**| Custom TELEM 2 (JST-GH) to USB Data Cable | Bridges Cube Orange+ TELEM 2 UART to Pi 5 USB port for MAVROS. |
 | **RC Transmitter/Rx** | RadioMaster TX16S + ELRS / CRSF Receiver | Essential manual pilot override and GUIDED mode trigger switch. |
 | **GNSS & Compass** | External GPS + Magnetometer (Here3 / Here4) | Provides global RTK/GPS fix for GPS waypoint navigation. |
 
 ---
 
-## Parts Photos
+## Parts & Components Gallery
 
-| Cube Orange+ (Box) | IMX500 AI Camera | RadioMaster TX16S Transmitter |
+### 1. Core Processing & Avionics
+| Cube Orange+ (Box) | Raspberry Pi 5 (8 GB) Board | Sony IMX500 AI Camera |
 | :---: | :---: | :---: |
-| ![Cube Orange+ packaging box](images/hardware_cubepilot_orange_plus_packaging_box_v2.jpg) | ![IMX500 camera module](images/hardware_rpi_ai_camera_imx500_module_v1.jpg) | ![RadioMaster TX16S RC transmitter](images/hardware_radiomaster_tx16s_rc_transmitter_gimbal_switches_v1.jpg) |
-| *Cube Orange+ avionics module* | *Sony IMX500 camera sensor* | *RC transmitter with GUIDED mode switch* |
+| ![Cube Orange+ packaging box](images/hardware_cubepilot_orange_plus_packaging_box_v2.jpg) | ![Raspberry Pi 5 8GB Board](images/raspberry_pi_5_8gb.jpeg) | ![IMX500 camera module](images/hardware_rpi_ai_camera_imx500_module_v1.jpg) |
+| *Cube Orange+ autopilot packaging* | *Raspberry Pi 5 (8 GB) with passive heatsinks* | *Sony IMX500 AI camera module* |
 
-| Raspberry Pi 5 (8 GB) Board | 5V 5A Buck Converter Assembly | TELEM 2 to USB Cable |
+### 2. Connectivity & Telemetry
+| TP-Link AC1300 USB Wi-Fi Receiver | RadioMaster TX16S Transmitter | FPC Camera Ribbons (200mm vs 500mm) |
 | :---: | :---: | :---: |
-| ![Raspberry Pi 5 Board](images/hardware_rpi5_board.jpg) | ![5V 5A Buck Converter with Cable Harness](images/hardware_buck_converter_cable.jpg) | ![TELEM 2 to USB MAVROS Cable Harness](images/hardware_telem_usb_cable.jpg) |
-| *Raspberry Pi 5 companion computer* | *5V 5A DC-DC buck converter harness* | *Cube TELEM 2 to Pi USB serial cable* |
+| ![TP-Link AC1300 USB Wi-Fi Dongle](images/hardware_tplink_usb_wifi_dongle_antenna_v1.jpg) | ![RadioMaster TX16S RC transmitter](images/hardware_radiomaster_tx16s_rc_transmitter_gimbal_switches_v1.jpg) | ![Camera Ribbon Cables 200mm and 500mm](images/hardware_rpi5_camera_ribbon_cable_200mm_500mm_v4.jpg) |
+| *High-gain dual-band AC1300 USB Wi-Fi adapter* | *RadioMaster TX16S pilot control transmitter* | *Official Standard-to-Mini CSI ribbon cables* |
 
-> [!NOTE]
-> *Photo Upload Placeholder*: If any of the three parts photos above (`hardware_rpi5_board.jpg`, `hardware_buck_converter_cable.jpg`, `hardware_telem_usb_cable.jpg`) are missing in your local repo, capture close-ups of each component and drop them into `docs/hardware/images/`.
+### 3. Custom MAVROS Serial Cable Harness
+| TELEM 2 to USB Custom Harness | Stock Extender vs Custom Spliced Cable | Cube Carrier Board USB Wiring |
+| :---: | :---: | :---: |
+| ![Custom TELEM 2 to USB Serial Harness](images/hardware_cubepilot_telemetry_usb_cable_harness_v1.jpg) | ![Stock Cable vs Custom Spliced Cable](images/hardware_safety_switch_and_telemetry_cables_pair_v2.jpg) | ![Cube Carrier Board Wiring Close-Up](images/hardware_cubepilot_carrier_board_usb_wiring_closeups_v3.jpg) |
+| *Custom JST-GH to USB-A serial cable harness* | *Left: Stock Cube USB/buzzer lead; Right: Custom low-profile serial harness* | *Close-up of carrier board USB & serial connectors* |
+
+> [!TIP]
+> **Custom Telemetry Cable Construction**: As shown in the comparison photo above, the standard USB extension cable supplied with the Cube is bulky. For clean undercarriage airframe integration, a custom harness was constructed by splicing a standard shielded USB-A cable directly to a 6-pin JST-GH connector (`TELEM 2`: TX, RX, GND) and insulating each solder junction with dual-wall heat-shrink tubing.
+
+### 4. Power Regulation & Multimeter Verification
+| 5V 5A DC-DC Buck Converter Assembly | Bare 5V 5A DC-DC Buck Regulator PCB | Multimeter 5.1V Rail Verification |
+| :---: | :---: | :---: |
+| ![5V 5A Buck Converter with Cable Harness](images/hardware_bec_voltage_regulator_usb_c_module_v2.jpg) | ![Bare 5V 5A Buck Regulator PCB](images/hardware_optical_flow_sensor_pcb_bench_v3.jpg) | ![Multimeter 5V BEC voltage test](images/hardware_multimeter_5v_bec_voltage_test_v1.jpg) |
+| *Complete 5V 5A buck converter with USB-C termination* | *High-efficiency step-down buck converter PCB module* | *Digital multimeter verifying steady 5.1V output rail* |
 
 ---
 
@@ -85,14 +99,11 @@ The Raspberry Pi 5 requires a regulated **5.0 V / 5.0 A** continuous power suppl
   ```
   A return value of `throttled=0x0` indicates clean, unthrottled power. Any bitmask containing `0x1` or `0x50000` indicates under-voltage history.
 
-| BEC Voltage Regulator (USB-C Output) | Measuring 5V Output with Multimeter |
-| :---: | :---: |
-| ![BEC voltage regulator with USB-C](images/hardware_bec_voltage_regulator_usb_c_module_v2.jpg) | ![Multimeter 5V BEC voltage test](images/hardware_multimeter_5v_bec_voltage_test_v1.jpg) |
-| *High-efficiency DC-DC buck converter with USB-C out* | *Multimeter verification of clean 5.1V rail before connecting Pi* |
-
 ---
 
 ## Camera CSI Cable Installation (500 mm FPC)
+
+The Sony IMX500 AI camera uses an official Raspberry Pi Standard-to-Mini CSI ribbon cable. While a 200 mm cable can be used for tight bench testing, the **500 mm cable** is strongly recommended for the physical drone to allow strain-free routing from the top-plate companion computer down to the nadir camera enclosure.
 
 1. **Power Off**: Ensure the Raspberry Pi 5 is completely powered down before connecting or disconnecting the CSI ribbon.
 2. **Port Selection**: Use the **CAM0** port on the Raspberry Pi 5.
