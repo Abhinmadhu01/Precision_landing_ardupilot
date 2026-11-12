@@ -96,7 +96,7 @@ Notes:
 
 <div align="center">
 
-| [⬅️ Previous: **08 - ROS 2 Nodes**](nodes.md) | [📖 **Documentation Roadmap**](../../README.md#documentation-roadmap) | [➡️ Next: **10 - Landing Algorithm**](../landing-algorithm.md) |
+| [⬅️ Previous: **09 - ROS 2 Nodes**](nodes.md) | [📖 **Documentation Roadmap**](../../README.md#documentation-roadmap) | [➡️ Next: **11 - Landing Algorithm**](../landing-algorithm.md) |
 | :--- | :---: | ---: |
 
 </div>

@@ -81,7 +81,7 @@ At the commanded descent rates the 3 s stall watchdog is usually the first to fi
 
 <div align="center">
 
-| [⬅️ Previous: **09 - Configuration**](software/config.md) | [📖 **Documentation Roadmap**](../README.md#documentation-roadmap) | [➡️ Next: **11 - Troubleshooting**](troubleshooting.md) |
+| [⬅️ Previous: **10 - Configuration**](software/config.md) | [📖 **Documentation Roadmap**](../README.md#documentation-roadmap) | [➡️ Next: **12 - Troubleshooting**](troubleshooting.md) |
 | :--- | :---: | ---: |
 
 </div>

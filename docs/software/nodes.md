@@ -113,7 +113,7 @@ float64 err_y
 
 <div align="center">
 
-| [⬅️ Previous: **07 - Software Setup**](README.md) | [📖 **Documentation Roadmap**](../../README.md#documentation-roadmap) | [➡️ Next: **09 - Configuration Parameters**](config.md) |
+| [⬅️ Previous: **08 - Software Architecture**](README.md) | [📖 **Documentation Roadmap**](../../README.md#documentation-roadmap) | [➡️ Next: **10 - Configuration Parameters**](config.md) |
 | :--- | :---: | ---: |
 
 </div>

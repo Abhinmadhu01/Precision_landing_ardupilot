@@ -47,7 +47,7 @@ The image centre (320, 240) and the PID gains are tuned for 640x480. At 1280x720
 
 <div align="center">
 
-| [⬅️ Previous: **11 - Troubleshooting**](troubleshooting.md) | [📖 **Documentation Roadmap**](../README.md#documentation-roadmap) | [➡️ Next: **Return to Project Home**](../README.md) |
+| [⬅️ Previous: **12 - Troubleshooting**](troubleshooting.md) | [📖 **Documentation Roadmap**](../README.md#documentation-roadmap) | [➡️ Next: **Return to Project Home**](../README.md) |
 | :--- | :---: | ---: |
 
 </div>
