@@ -59,13 +59,13 @@ The complete hardware interconnect between the Cube Orange+ flight controller, R
 ### 1. Core Processing & Avionics
 | Cube Orange+ (Box) | Raspberry Pi 5 (8 GB) Board | Sony IMX500 AI Camera |
 | :---: | :---: | :---: |
-| ![Cube Orange+ packaging box](images/hardware_cubepilot_orange_plus_packaging_box_v2.jpg) | ![Raspberry Pi 5 8GB Board](images/raspberry_pi_5_8gb.jpeg) | ![IMX500 camera module](images/hardware_rpi_ai_camera_imx500_module_v1.jpg) |
+| <img src="images/hardware_cubepilot_orange_plus_packaging_box_v2.jpg" width="100%" alt="Cube Orange+ packaging box" /> | <img src="images/raspberry_pi_5_8gb.jpeg" width="100%" alt="Raspberry Pi 5 8GB Board" /> | <img src="images/hardware_rpi_ai_camera_imx500_module_v1.jpg" width="100%" alt="Sony IMX500 camera module" /> |
 | *Cube Orange+ autopilot packaging* | *Raspberry Pi 5 (8 GB) with passive heatsinks* | *Sony IMX500 AI camera module* |
 
 ### 2. Connectivity, Telemetry & Pilot Control
 | RadioLink AT9S Pro Transmitter | TP-Link AC1300 USB Wi-Fi Receiver | FPC Camera Ribbons (200mm vs 500mm) |
 | :---: | :---: | :---: |
-| ![RadioLink AT9S Pro RC Transmitter](images/transmitter_AT9S_pro.jpeg) | ![TP-Link AC1300 USB Wi-Fi Dongle](images/hardware_tplink_usb_wifi_dongle_antenna_v1.jpg) | ![Camera Ribbon Cables 200mm and 500mm](images/hardware_rpi5_camera_ribbon_cable_200mm_500mm_v4.jpg) |
+| <img src="images/transmitter_AT9S_pro.jpeg" width="100%" alt="RadioLink AT9S Pro RC Transmitter" /> | <img src="images/hardware_tplink_usb_wifi_dongle_antenna_v1.jpg" width="100%" alt="TP-Link AC1300 USB Wi-Fi Dongle" /> | <img src="images/hardware_rpi5_camera_ribbon_cable_200mm_500mm_v4.jpg" width="100%" alt="Camera Ribbon Cables 200mm and 500mm" /> |
 | *RadioLink AT9S Pro transmitter (FURY V2 in GUIDED mode, 15.4V telemetry)* | *High-gain dual-band AC1300 USB Wi-Fi adapter* | *Official Standard-to-Mini CSI ribbon cables* |
 
 > [!NOTE]
@@ -74,7 +74,7 @@ The complete hardware interconnect between the Cube Orange+ flight controller, R
 ### 3. Custom MAVROS Serial Cable Harness
 | TELEM 2 to USB Custom Harness | Stock Extender vs Custom Spliced Cable | Cube Carrier Board USB Wiring |
 | :---: | :---: | :---: |
-| ![Custom TELEM 2 to USB Serial Harness](images/hardware_cubepilot_telemetry_usb_cable_harness_v1.jpg) | ![Stock Cable vs Custom Spliced Cable](images/hardware_safety_switch_and_telemetry_cables_pair_v2.jpg) | ![Cube Carrier Board Wiring Close-Up](images/hardware_cubepilot_carrier_board_usb_wiring_closeups_v3.jpg) |
+| <img src="images/hardware_cubepilot_telemetry_usb_cable_harness_v1.jpg" width="100%" alt="Custom TELEM 2 to USB Serial Harness" /> | <img src="images/hardware_safety_switch_and_telemetry_cables_pair_v2.jpg" width="100%" alt="Stock Cable vs Custom Spliced Cable" /> | <img src="images/hardware_cubepilot_carrier_board_usb_wiring_closeups_v3.jpg" width="100%" alt="Cube Carrier Board Wiring Close-Up" /> |
 | *Custom JST-GH to USB-A serial cable harness* | *Left: Stock Cube USB/buzzer lead; Right: Custom low-profile serial harness* | *Close-up of carrier board USB & serial connectors* |
 
 > [!TIP]
@@ -83,7 +83,7 @@ The complete hardware interconnect between the Cube Orange+ flight controller, R
 ### 4. Power Regulation & Multimeter Verification
 | 5V 5A DC-DC Buck Converter Assembly | Bare 5V 5A DC-DC Buck Regulator PCB | Multimeter 5.1V Rail Verification |
 | :---: | :---: | :---: |
-| ![5V 5A Buck Converter with Cable Harness](images/hardware_bec_voltage_regulator_usb_c_module_v2.jpg) | ![Bare 5V 5A Buck Regulator PCB](images/hardware_optical_flow_sensor_pcb_bench_v3.jpg) | ![Multimeter 5V BEC voltage test](images/hardware_multimeter_5v_bec_voltage_test_v1.jpg) |
+| <img src="images/hardware_bec_voltage_regulator_usb_c_module_v2.jpg" width="100%" alt="5V 5A Buck Converter with Cable Harness" /> | <img src="images/hardware_optical_flow_sensor_pcb_bench_v3.jpg" width="100%" alt="Bare 5V 5A Buck Regulator PCB" /> | <img src="images/hardware_multimeter_5v_bec_voltage_test_v1.jpg" width="100%" alt="Multimeter 5V BEC voltage test" /> |
 | *Complete 5V 5A buck converter with USB-C termination* | *High-efficiency step-down buck converter PCB module* | *Fluke digital multimeter verifying clean 5.096 V rail under load* |
 
 ---
@@ -118,7 +118,7 @@ The Sony IMX500 AI camera uses an official Raspberry Pi Standard-to-Mini CSI rib
 
 | Step 1: Insert Ribbon Cable | Step 2: Connect to CAM0 Port |
 | :---: | :---: |
-| ![CSI ribbon cable insertion](images/hardware_rpi5_csi_ribbon_cable_insertion_v2.jpg) | ![Camera connected to CAM0](images/hardware_rpi5_csi_port_cam0_connected_v2.jpg) |
+| <img src="images/hardware_rpi5_csi_ribbon_cable_insertion_v2.jpg" width="100%" alt="CSI ribbon cable insertion" /> | <img src="images/hardware_rpi5_csi_port_cam0_connected_v2.jpg" width="100%" alt="Camera connected to CAM0" /> |
 | *Lift connector latch and slide ribbon cable contacts in squarely* | *Firmly seat ribbon cable and lock CAM0 retention clip* |
 
 ---
@@ -134,7 +134,7 @@ The Sony IMX500 AI camera uses an official Raspberry Pi Standard-to-Mini CSI rib
    SERIAL2_BAUD     = 921    (921600 baud)
    BRD_SER2_RTSCTS  = 0      (Disabled if using 3-wire TX/RX/GND without flow control)
    ```
-4. **Flight Mode Switch**: Assign a 2-position or 3-position switch on the RadioMaster TX16S to **GUIDED** mode.
+4. **Flight Mode Switch**: Assign a 2-position or 3-position switch on the RadioLink AT9S Pro (or RadioMaster TX16S) to **GUIDED** mode.
 5. **Horizontal Speed Limit**: Set `WPNAV_SPEED = 500` (5.0 m/s) to ensure smooth transit to the precision landing search point.
 
 > [!WARNING]
@@ -162,7 +162,7 @@ Before mounting hardware onto the drone frame, assemble the benchtop test setup 
 
 | Bench Hardware Setup | Complete Interconnect with Telemetry Wi-Fi |
 | :---: | :---: |
-| ![Bench setup with Pi 5, IMX500 and BEC](images/hardware_bench_setup_rpi5_imx500_bec_complete_v1.jpg) | ![Complete bench interconnect with Wi-Fi dongle](images/hardware_bench_interconnect_complete_with_wifi_v1.jpg) |
+| <img src="images/hardware_bench_setup_rpi5_imx500_bec_complete_v1.jpg" width="100%" alt="Bench setup with Pi 5, IMX500 and BEC" /> | <img src="images/hardware_bench_interconnect_complete_with_wifi_v1.jpg" width="100%" alt="Complete bench interconnect with Wi-Fi dongle" /> |
 | *Raspberry Pi 5 with IMX500 AI camera and 5V BEC regulator* | *Full bench interconnect wiring with Wi-Fi dongle for telemetry link* |
 
 ### Pre-Power Bench Verification Checklist
