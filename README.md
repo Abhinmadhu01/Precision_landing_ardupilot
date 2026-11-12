@@ -120,8 +120,9 @@ RC Mode Switch (GUIDED)                                     /detections
 | **Companion Computer** | Raspberry Pi 5 (8 GB) *(or Pi 4)* | Pi 5 runs RPi OS + Docker; Pi 4 runs Ubuntu 22.04 LTS native bare-metal. |
 | **Vision Sensor** | Sony IMX500 AI Camera Module | Fixed nadir (straight-down) orientation via 500 mm FPC ribbon cable. |
 | **Camera Mount** | 3D-Printed PLA/PETG Enclosure | Custom Onshape CAD design with vibration isolation ([camera-holder](docs/hardware/camera-holder/README.md)). |
-| **Power Distribution** | Dual Independent Regulation | 2200 mAh 40C LiPo $\rightarrow$ Cube Brick Mini (FCU) & 5V 5A Buck (Pi 5). |
-| **Telemetry Link** | TP-Link USB High-Gain Wi-Fi | Provides ground GCS link, remote SSH access, and GStreamer video downlink. |
+| **Power Distribution** | Dual Independent Regulation | 4S 2200 mAh 40C LiPo $\rightarrow$ Cube Brick Mini (FCU) & 5V 5A Buck (Pi 5). |
+| **Telemetry Link** | TP-Link AC1300 High-Gain Wi-Fi | Provides ground GCS link, remote SSH access, and GStreamer video downlink. |
+| **RC Transmitter** | RadioLink AT9S Pro (or TX16S) | Mode switch for GUIDED trigger with live telemetry display (FURY V2). |
 
 | Downward Camera Enclosure | Undercarriage Airframe Integration |
 | :---: | :---: |

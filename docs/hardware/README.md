@@ -47,9 +47,9 @@ The complete hardware interconnect between the Cube Orange+ flight controller, R
 | **Telemetry Wi-Fi** | TP-Link AC1300 High-Gain USB Wi-Fi Receiver | Ground-to-air telemetry, live terminal diagnostics, and GStreamer video stream. |
 | **Companion Power** | 5 V / 5 A DC-DC Buck Converter (USB-C termination) | Dedicated power supply for Raspberry Pi 5. **5 A minimum is strictly required**. |
 | **Autopilot Power** | Cube Power Brick Mini Module | Dedicated power module for Cube Orange+ `POWER1` port with voltage/current sensing. |
-| **Battery Bus** | 2200 mAh 40C LiPo Battery | Central flight and companion power source with XT60 splitter. |
+| **Battery Bus** | 4S 2200 mAh 40C LiPo Battery | Central flight and companion power source (14.8 V nominal, 15.4 V resting) with XT60 splitter. |
 | **Serial Link Cable**| Custom TELEM 2 (JST-GH) to USB Data Cable | Bridges Cube Orange+ TELEM 2 UART to Pi 5 USB port for MAVROS. |
-| **RC Transmitter/Rx** | RadioMaster TX16S + ELRS / CRSF Receiver | Essential manual pilot override and GUIDED mode trigger switch. |
+| **RC Transmitter/Rx** | RadioLink AT9S Pro (or RadioMaster TX16S) + Receiver | Primary manual pilot override and GUIDED mode switch. Screen displays live telemetry & mode. |
 | **GNSS & Compass** | External GPS + Magnetometer (Here3 / Here4) | Provides global RTK/GPS fix for GPS waypoint navigation. |
 
 ---
@@ -62,11 +62,14 @@ The complete hardware interconnect between the Cube Orange+ flight controller, R
 | ![Cube Orange+ packaging box](images/hardware_cubepilot_orange_plus_packaging_box_v2.jpg) | ![Raspberry Pi 5 8GB Board](images/raspberry_pi_5_8gb.jpeg) | ![IMX500 camera module](images/hardware_rpi_ai_camera_imx500_module_v1.jpg) |
 | *Cube Orange+ autopilot packaging* | *Raspberry Pi 5 (8 GB) with passive heatsinks* | *Sony IMX500 AI camera module* |
 
-### 2. Connectivity & Telemetry
-| TP-Link AC1300 USB Wi-Fi Receiver | RadioMaster TX16S Transmitter | FPC Camera Ribbons (200mm vs 500mm) |
+### 2. Connectivity, Telemetry & Pilot Control
+| RadioLink AT9S Pro Transmitter | TP-Link AC1300 USB Wi-Fi Receiver | FPC Camera Ribbons (200mm vs 500mm) |
 | :---: | :---: | :---: |
-| ![TP-Link AC1300 USB Wi-Fi Dongle](images/hardware_tplink_usb_wifi_dongle_antenna_v1.jpg) | ![RadioMaster TX16S RC transmitter](images/hardware_radiomaster_tx16s_rc_transmitter_gimbal_switches_v1.jpg) | ![Camera Ribbon Cables 200mm and 500mm](images/hardware_rpi5_camera_ribbon_cable_200mm_500mm_v4.jpg) |
-| *High-gain dual-band AC1300 USB Wi-Fi adapter* | *RadioMaster TX16S pilot control transmitter* | *Official Standard-to-Mini CSI ribbon cables* |
+| ![RadioLink AT9S Pro RC Transmitter](images/transmitter_AT9S_pro.jpeg) | ![TP-Link AC1300 USB Wi-Fi Dongle](images/hardware_tplink_usb_wifi_dongle_antenna_v1.jpg) | ![Camera Ribbon Cables 200mm and 500mm](images/hardware_rpi5_camera_ribbon_cable_200mm_500mm_v4.jpg) |
+| *RadioLink AT9S Pro transmitter (FURY V2 in GUIDED mode, 15.4V telemetry)* | *High-gain dual-band AC1300 USB Wi-Fi adapter* | *Official Standard-to-Mini CSI ribbon cables* |
+
+> [!NOTE]
+> **Pilot Override & Mode Telemetry**: The RadioLink AT9S Pro transmitter is configured for the **FURY V2** model profile. As seen on the LCD display, it receives real-time flight mode telemetry (`[GUIDED]`) and 4S LiPo pack voltage (`15.4 V`). RadioMaster TX16S is also supported as an alternate multi-protocol transmitter.
 
 ### 3. Custom MAVROS Serial Cable Harness
 | TELEM 2 to USB Custom Harness | Stock Extender vs Custom Spliced Cable | Cube Carrier Board USB Wiring |
@@ -81,7 +84,7 @@ The complete hardware interconnect between the Cube Orange+ flight controller, R
 | 5V 5A DC-DC Buck Converter Assembly | Bare 5V 5A DC-DC Buck Regulator PCB | Multimeter 5.1V Rail Verification |
 | :---: | :---: | :---: |
 | ![5V 5A Buck Converter with Cable Harness](images/hardware_bec_voltage_regulator_usb_c_module_v2.jpg) | ![Bare 5V 5A Buck Regulator PCB](images/hardware_optical_flow_sensor_pcb_bench_v3.jpg) | ![Multimeter 5V BEC voltage test](images/hardware_multimeter_5v_bec_voltage_test_v1.jpg) |
-| *Complete 5V 5A buck converter with USB-C termination* | *High-efficiency step-down buck converter PCB module* | *Digital multimeter verifying steady 5.1V output rail* |
+| *Complete 5V 5A buck converter with USB-C termination* | *High-efficiency step-down buck converter PCB module* | *Fluke digital multimeter verifying clean 5.096 V rail under load* |
 
 ---
 
