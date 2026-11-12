@@ -141,21 +141,21 @@ echo "source ~/pr_land_ws/install/setup.bash" >> ~/.bashrc
 Run these tests on the bench with **propellers removed** to verify hardware and communications:
 
 ### Step 5.1: Verify Serial Port Detection
-Connect the Cube Orange+ TELEM 2 USB cable to the companion computer. Check the device node:
+Connect the Cube Orange+ native USB port cable to the companion computer. Check the device node:
 ```bash
-ls -l /dev/ttyUSB* /dev/ttyACM*
+ls -l /dev/ttyACM* /dev/ttyUSB*
 ```
+*Expected output*: `/dev/ttyACM0` (Cube Orange+ native USB CDC-ACM device).
+
 Grant dialout user permissions if needed:
 ```bash
 sudo usermod -a -G dialout $USER
 ```
 
 ### Step 5.2: Start and Test MAVROS Bridge
-Launch MAVROS targeting the serial port and baud rate configured on ArduPilot (921600 baud):
+Launch MAVROS targeting the USB device node:
 ```bash
-ros2 launch mavros apm.launch fcu_url:=/dev/ttyUSB0:921600
-# or if recognized as ACM:
-# ros2 launch mavros apm.launch fcu_url:=/dev/ttyACM0:921600
+ros2 launch mavros apm.launch fcu_url:=/dev/ttyACM0:921600
 ```
 
 In a second terminal, verify the heartbeat and telemetry streams:

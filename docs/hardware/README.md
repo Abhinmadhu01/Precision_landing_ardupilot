@@ -16,17 +16,17 @@ The complete hardware interconnect between the Cube Orange+ flight controller, R
 
 ### Connection Subsystems Breakdown
 
-1. **Companion Computer & FCU Telemetry Link (MAVROS)**:
-   - **Cube Port**: `TELEM 2` on the carrier board (3-wire: TX, RX, GND).
-   - **Pi Port**: USB-A port on the Raspberry Pi 5 via a custom spliced USB-to-UART serial cable.
-   - **Serial Device**: Typically appears as `/dev/ttyUSB0` or `/dev/ttyACM0` on the Pi host.
-   - **Communication Protocol**: MAVLink 2 at 921600 baud (`SERIAL2_BAUD = 921`, `SERIAL2_PROTOCOL = 2`).
+1. **Companion Computer & FCU USB Link (MAVROS)**:
+   - **Cube Port**: Carrier board **native USB port** (micro-USB / USB connector on the side of the carrier board).
+   - **Pi Port**: USB-A port on the Raspberry Pi 5.
+   - **Serial Device**: Enumerates on the Pi host as `/dev/ttyACM0` (standard USB CDC ACM serial).
+   - **Communication Protocol**: High-speed MAVLink 2 over native USB (`fcu_url:=/dev/ttyACM0:921600`).
 2. **Vision Subsystem (CSI Interface)**:
    - **Camera**: Sony IMX500 AI Camera Module mounted in the 3D-printed nadir enclosure.
    - **Ribbon Cable**: **500 mm flexible flat cable (FPC)** (Standard 15-pin to Mini 22-pin pitch adapter).
    - **Pi Port**: Connected to the Raspberry Pi 5 **CAM0** CSI connector with contacts facing towards the latch.
 3. **Dual-Regulated Power Distribution**:
-   - **Battery Source**: 2200 mAh 40C LiPo battery connected via an XT60 parallel splitter.
+   - **Battery Source**: **Genx Power+ 4S 2200 mAh 40C LiPo** battery (14.8 V nominal, 15.4 V resting/operating) connected via an XT60 parallel splitter.
    - **FCU Power Branch**: Powers the **Cube Brick Mini** power module, providing monitored 5.3 V to the Cube's **POWER1** port with voltage and current sensing telemetry.
    - **Companion Computer Branch**: Powers a dedicated **5V 5A DC-DC Buck Converter**, which outputs regulated 5.0 V / 5.0 A through a USB-C plug directly into the Pi 5 power input.
 4. **Wireless Ground Station & Telemetry (GCS Link)**:
@@ -47,8 +47,8 @@ The complete hardware interconnect between the Cube Orange+ flight controller, R
 | **Telemetry Wi-Fi** | TP-Link AC1300 High-Gain USB Wi-Fi Receiver | Ground-to-air telemetry, live terminal diagnostics, and GStreamer video stream. |
 | **Companion Power** | 5 V / 5 A DC-DC Buck Converter (USB-C termination) | Dedicated power supply for Raspberry Pi 5. **5 A minimum is strictly required**. |
 | **Autopilot Power** | Cube Power Brick Mini Module | Dedicated power module for Cube Orange+ `POWER1` port with voltage/current sensing. |
-| **Battery Bus** | 4S 2200 mAh 40C LiPo Battery | Central flight and companion power source (14.8 V nominal, 15.4 V resting) with XT60 splitter. |
-| **Serial Link Cable**| Custom TELEM 2 (JST-GH) to USB Data Cable | Bridges Cube Orange+ TELEM 2 UART to Pi 5 USB port for MAVROS. |
+| **Battery Bus** | Genx Power+ 4S 2200 mAh 40C LiPo | Central flight and companion power source (14.8 V nominal, 15.4 V resting) with XT60 splitter. |
+| **Autopilot Link Cable**| Cube Carrier Board USB to Pi USB Cable | Bridges Cube Orange+ native USB port to Pi 5 USB-A port for MAVROS (`/dev/ttyACM0`). |
 | **RC Transmitter/Rx** | RadioLink AT9S Pro (or RadioMaster TX16S) + Receiver | Primary manual pilot override and GUIDED mode switch. Screen displays live telemetry & mode. |
 | **GNSS & Compass** | External GPS + Magnetometer (Here3 / Here4) | Provides global RTK/GPS fix for GPS waypoint navigation. |
 
@@ -71,14 +71,14 @@ The complete hardware interconnect between the Cube Orange+ flight controller, R
 > [!NOTE]
 > **Pilot Override & Mode Telemetry**: The RadioLink AT9S Pro transmitter is configured for the **FURY V2** model profile. As seen on the LCD display, it receives real-time flight mode telemetry (`[GUIDED]`) and 4S LiPo pack voltage (`15.4 V`). RadioMaster TX16S is also supported as an alternate multi-protocol transmitter.
 
-### 3. Custom MAVROS Serial Cable Harness
-| TELEM 2 to USB Custom Harness | Stock Extender vs Custom Spliced Cable | Cube Carrier Board USB Wiring |
+### 3. Custom MAVROS USB Cable Harness & Autopilot Link
+| Custom USB to Pi Data Harness | Stock Extender vs Custom Spliced Cable | Cube Carrier Board USB Wiring |
 | :---: | :---: | :---: |
-| <img src="images/hardware_cubepilot_telemetry_usb_cable_harness_v1.jpg" width="100%" alt="Custom TELEM 2 to USB Serial Harness" /> | <img src="images/hardware_safety_switch_and_telemetry_cables_pair_v2.jpg" width="100%" alt="Stock Cable vs Custom Spliced Cable" /> | <img src="images/hardware_cubepilot_carrier_board_usb_wiring_closeups_v3.jpg" width="100%" alt="Cube Carrier Board Wiring Close-Up" /> |
-| *Custom JST-GH to USB-A serial cable harness* | *Left: Stock Cube USB/buzzer lead; Right: Custom low-profile serial harness* | *Close-up of carrier board USB & serial connectors* |
+| <img src="images/hardware_cubepilot_telemetry_usb_cable_harness_v1.jpg" width="100%" alt="Custom USB to Pi Data Harness" /> | <img src="images/hardware_safety_switch_and_telemetry_cables_pair_v2.jpg" width="100%" alt="Stock Cable vs Custom Spliced Cable" /> | <img src="images/hardware_cubepilot_carrier_board_usb_wiring_closeups_v3.jpg" width="100%" alt="Cube Carrier Board USB Wiring Close-Up" /> |
+| *Custom low-profile USB data cable harness* | *Left: Stock Cube USB/buzzer extender lead; Right: Custom low-profile spliced USB harness* | *Close-up of carrier board native USB port connection* |
 
 > [!TIP]
-> **Custom Telemetry Cable Construction**: As shown in the comparison photo above, the standard USB extension cable supplied with the Cube is bulky. For clean undercarriage airframe integration, a custom harness was constructed by splicing a standard shielded USB-A cable directly to a 6-pin JST-GH connector (`TELEM 2`: TX, RX, GND) and insulating each solder junction with dual-wall heat-shrink tubing.
+> **Custom USB Harness Construction**: As shown in the comparison photo above, the standard USB extension cable supplied in the Cube packaging box is bulky. For clean undercarriage airframe integration, a custom low-profile cable was built by splicing a standard shielded USB data cable to connect tightly between the carrier board USB port and the Pi 5, with each joint insulated with dual-wall heat-shrink tubing.
 
 ### 4. Power Regulation & Multimeter Verification
 | 5V 5A DC-DC Buck Converter Assembly | Bare 5V 5A DC-DC Buck Regulator PCB | Multimeter 5.1V Rail Verification |
@@ -127,13 +127,8 @@ The Sony IMX500 AI camera uses an official Raspberry Pi Standard-to-Mini CSI rib
 
 1. **Firmware Installation**: Flash ArduCopter (v4.3.0 or later) via QGroundControl or Mission Planner.
 2. **Sensors Calibration**: Perform accelerometer, compass, level horizon, and radio calibration.
-3. **Telemetry Port Setup (TELEM 2)**:
-   In the ArduCopter Full Parameter List, configure the serial port connected to the Pi:
-   ```text
-   SERIAL2_PROTOCOL = 2      (MAVLink 2)
-   SERIAL2_BAUD     = 921    (921600 baud)
-   BRD_SER2_RTSCTS  = 0      (Disabled if using 3-wire TX/RX/GND without flow control)
-   ```
+3. **Autopilot USB Communication**:
+   The flight controller connects to the Raspberry Pi 5 companion computer directly via the carrier board's **native USB port**, handled automatically by ArduCopter as `SERIAL0` (USB MAVLink interface). On the Raspberry Pi host, it enumerates as `/dev/ttyACM0`. MAVROS connects cleanly via `fcu_url:=/dev/ttyACM0:921600` (or `115200`).
 4. **Flight Mode Switch**: Assign a 2-position or 3-position switch on the RadioLink AT9S Pro (or RadioMaster TX16S) to **GUIDED** mode.
 5. **Horizontal Speed Limit**: Set `WPNAV_SPEED = 500` (5.0 m/s) to ensure smooth transit to the precision landing search point.
 

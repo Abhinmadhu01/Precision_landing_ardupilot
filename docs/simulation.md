@@ -1,6 +1,6 @@
-# SITL Simulation Guide (Gazebo, RViz & QGroundControl)
+# SITL Simulation Guide (Gazebo Harmonic, RViz & QGroundControl)
 
-This guide provides the complete procedure for simulating the autonomous precision landing mission using **ArduPilot SITL**, **Gazebo**, **RViz**, and **QGroundControl (QGC)** before testing on physical hardware.
+This guide provides the complete procedure for simulating the autonomous precision landing mission using **ArduPilot SITL**, **Gazebo Harmonic**, **RViz**, and **QGroundControl (QGC)** before testing on physical hardware.
 
 <p align="center">
   <img src="images/simulation/sim_multiwindow_precision_landing.png" width="850" alt="SITL Gazebo, RViz, and QGroundControl Precision Landing Simulation" />
@@ -26,13 +26,13 @@ This simulation environment follows the integration architecture described in th
 The simulation pipeline runs entirely in software on an Ubuntu 22.04 host:
 
 ```text
-+-----------------------+         +-------------------------+
-| Gazebo Simulator      |         | ArduPilot SITL (Copter) |
-| - Runway world        | <=====> | - Flight dynamics model |
-| - Iris quadcopter     |  JSON/  | - EKF state estimation  |
-| - AprilTag ground pad |  Lockstep| - MAVLink UDP (14550)   |
-| - Mono camera sensor  |         +------------+------------+
-+-----------+-----------+                      |
++------------------------------+         +-------------------------+
+| Gazebo Harmonic Simulator    |         | ArduPilot SITL (Copter) |
+| - Runway world               | <=====> | - Flight dynamics model |
+| - Iris quadcopter            |  JSON/  | - EKF state estimation  |
+| - AprilTag ground pad        |  Lockstep| - MAVLink UDP (14550)   |
+| - Mono camera sensor         |         +------------+------------+
++--------------+---------------+                      |
             | GZ Bridge                        | MAVROS
             v                                  v
 +-----------+-----------+         +------------+------------+
@@ -188,7 +188,8 @@ Select the flight mode dropdown in the top-left toolbar and choose **GUIDED**.
 | :--- | :--- | :--- |
 | **`use_sim_time`** | `true` (synchronized to `/clock`) | `false` (wall-clock time) |
 | **Camera Sensor** | Simulated Gazebo plugin camera | Sony IMX500 via CSI port (CAM0) |
-| **Autopilot Interface** | UDP socket (`udp://:14550`) | Serial UART (`TELEM 2` $\rightarrow$ USB) |
+| **Autopilot Interface** | UDP socket (`udp://:14550`) | Native USB port (`/dev/ttyACM0`) |
+| **Simulator Platform** | Gazebo Harmonic (`gz-harmonic`) | Physical Airframe (Fury V2) |
 | **Companion Deployment**| Host PC workstation | Raspberry Pi 5 (Docker) / Pi 4 (Native) |
 | **Environmental Noise** | Ideal aerodynamic conditions | Real wind gusts, ground effect turbulence, sun glare |
 

@@ -42,7 +42,7 @@ For package installation, dependencies, and MAVROS setup commands, see [installa
 
 - **Hardware Built & Inspected**: Avionics and wiring verified per [docs/hardware/README.md](../hardware/README.md).
 - **Packages & MAVROS Configured**: Verified per [docs/software/installation-and-mavros.md](installation-and-mavros.md).
-- **Flight Controller Setup**: ArduCopter flashed, sensors calibrated, `TELEM 2` set to 921600 baud, and RC mode switch assigned to **GUIDED**.
+- **Flight Controller Setup**: ArduCopter flashed, sensors calibrated, Cube connected via native USB port (`/dev/ttyACM0`), and RC mode switch assigned to **GUIDED**.
 - **Safety Protocol Reviewed**: You have thoroughly reviewed [SAFETY.md](../../SAFETY.md).
 
 ---

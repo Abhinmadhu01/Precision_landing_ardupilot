@@ -77,7 +77,7 @@ flowchart LR
 | **Sony IMX500 (640 $\times$ 480)** | **7 – 8 m** | 22.7 cm outer tag (`ID 0`, 48h12) | $\approx 9.6\text{ m} \times 7.2\text{ m}$ at 8m |
 | **Sony IMX500 (1280 $\times$ 720)**| **10 – 12 m** | 22.7 cm outer tag (`ID 0`, 48h12) | $\approx 14.5\text{ m} \times 8.2\text{ m}$ at 12m |
 
-*For complete optical derivations and camera geometry, see [docs/detection-range.md](docs/detection-range.md).*
+*Landing accuracy (touchdown offset from target centre): Detailed quantified distribution metrics will be updated after ongoing outdoor field re-testing. For optical derivations and geometry, see [docs/detection-range.md](docs/detection-range.md).*
 
 ### Touchdown Alignment
 
@@ -100,7 +100,7 @@ Sony IMX500 Camera ----(CSI / CAM0)----> Camera Node ----> /camera/image_raw (30
 RC Mode Switch (GUIDED)                                     /detections
           |                                                      |
           v                                                      v
-     Cube Orange+ <==== TELEM 2 (Serial / USB) ====> MAVROS <====+
+     Cube Orange+ <==== Native USB (/dev/ttyACM0) ====> MAVROS <+
           ^                                              |
           |       /mavros/setpoint_raw/global            |
           +<---------------------------------- navigation_server
@@ -116,11 +116,11 @@ RC Mode Switch (GUIDED)                                     /detections
 
 | Component | Project Implementation | Notes & Specifications |
 | :--- | :--- | :--- |
-| **Flight Controller** | Cube Orange+ (ArduCopter 4.3+) | Connected via carrier board `TELEM 2` to companion USB at 921600 baud. |
+| **Flight Controller** | Cube Orange+ (ArduCopter 4.3+) | Connected via carrier board native USB port to companion USB (`/dev/ttyACM0`). |
 | **Companion Computer** | Raspberry Pi 5 (8 GB) *(or Pi 4)* | Pi 5 runs RPi OS + Docker; Pi 4 runs Ubuntu 22.04 LTS native bare-metal. |
 | **Vision Sensor** | Sony IMX500 AI Camera Module | Fixed nadir (straight-down) orientation via 500 mm FPC ribbon cable. |
 | **Camera Mount** | 3D-Printed PLA/PETG Enclosure | Custom Onshape CAD design with vibration isolation ([camera-holder](docs/hardware/camera-holder/README.md)). |
-| **Power Distribution** | Dual Independent Regulation | 4S 2200 mAh 40C LiPo $\rightarrow$ Cube Brick Mini (FCU) & 5V 5A Buck (Pi 5). |
+| **Power Distribution** | Dual Independent Regulation | Genx Power+ 4S 2200 mAh 40C LiPo $\rightarrow$ Cube Brick Mini (FCU) & 5V 5A Buck (Pi 5). |
 | **Telemetry Link** | TP-Link AC1300 High-Gain Wi-Fi | Provides ground GCS link, remote SSH access, and GStreamer video downlink. |
 | **RC Transmitter** | RadioLink AT9S Pro (or TX16S) | Mode switch for GUIDED trigger with live telemetry display (FURY V2). |
 
